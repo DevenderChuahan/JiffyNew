@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "1036958238717",
+    "firebase_url": "https://jiffy-charge-1564558550721.firebaseio.com",
+    "project_id": "jiffy-charge-1564558550721",
+    "storage_bucket": "jiffy-charge-1564558550721.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036958238717:android:e420b1994aa19e6d833b94",
+        "android_client_info": {
+          "package_name": "in.jiffycharge.gopower"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1036958238717-8nnss8aj6hfj06l22695bms2jucp2gla.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.jiffycharge.gopower",
+            "certificate_hash": "83d210e0cbd95056596316415b1ae92a0cb0ee15"
+          }
+        },
+        {
+          "client_id": "1036958238717-ugvvsabp7qp11v0kj7afhthkmqeffav7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.jiffycharge.gopower",
+            "certificate_hash": "ca140bbf6ee15bd9909912ecd54f7dde06612e89"
+          }
+        },
+        {
+          "client_id": "1036958238717-1mpjjagdgoq0814iuplihka0ain61dra.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1n8I3MCabOuc7uvhQGQNxLjxOfNAKuOU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1036958238717-alkca5hevc4s8seab0qjolf7ji2fjf66.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1036958238717-6u8q2ugtpln27vamibicatt1sgakt7ut.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "in.jiffycharge.gopower"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

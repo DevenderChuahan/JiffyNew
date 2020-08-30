@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#25d0fc</color>
+    <color name="path_color">#25d0fc</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#25d0fc</color>
+    <color name="splashcolor">#221e1f</color>
+    <color name="loginBackground">#101010</color>
+    <color name="transparent">#10101000</color>
+    <color name="black">#000000</color>
+    <color name="custom_back">#1a1c26</color>
+    <color name="white">#ffffff</color>
+    <color name="red">#FFC50909</color>
+
+</resources>

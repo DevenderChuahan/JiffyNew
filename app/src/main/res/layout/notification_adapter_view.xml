@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="17dp"
+        android:layout_height="97dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:background="@drawable/notification_background"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:id="@+id/tv_top"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textColor="#fc258f"
+                        android:letterSpacing="0.02"
+                        android:text="Booking ended"
+                        android:layout_marginLeft="20dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginStart="20dp"
+                        android:textColor="#e2e2e2"
+                        android:fontFamily="@font/futura_medium"
+                        android:text="Apolo Hospital"
+                        android:layout_marginLeft="20dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginStart="20dp"
+                        android:textColor="#8c8d8e"
+                        android:fontFamily="@font/rubik_regular"
+                        android:letterSpacing="0.02"
+                        android:text="Mirrors Luxury Salon, Jubliee Hills Road"
+                        android:layout_marginLeft="20dp" />
+
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight=".5"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginEnd="22dp"
+                        android:textColor="#8c8d8e"
+                        android:fontFamily="@font/rubik_regular"
+                        android:letterSpacing="0.02"
+                        android:text="3:10 PM"
+                        android:layout_marginRight="22dp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

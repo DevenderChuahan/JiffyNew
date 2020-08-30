@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<data >
+    <variable
+        name="homeviewmodel"
+        type="in.jiffycharge.gopower.viewmodel.HomeActivityViewModel"/>
+
+
+
+</data>
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.drawerlayout.widget.DrawerLayout
+
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:id="@+id/fl_container"
+                android:layout_above="@+id/bottom_navigation"
+
+                android:layout_height="match_parent">
+
+            </FrameLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:id="@+id/ll_top"
+                android:layout_marginStart="1dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp">
+                <ImageView
+                    android:clickable="true"
+                    android:onClick="@{homeviewmodel::open_drawer}"
+                    android:focusable="true"
+                    android:id="@+id/iv_drawer_icon"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/group_4"
+                    android:layout_height="wrap_content"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center"
+                    android:id="@+id/rl_logo"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/group_3"
+                        android:layout_alignParentEnd="true"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#34353b"
+                app:itemIconTint="@color/color"
+                app:labelVisibilityMode="unlabeled"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/bottom_navigation"
+                app:menu="@menu/home_navigation_bottom"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="#34353b"
+                android:gravity="center"
+                android:focusable="true"
+                android:visibility="gone"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/group"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginBottom="13dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="35dp"
+                    tools:ignore="UnusedAttribute" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/wallet_copy"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="13dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_marginBottom="13dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="70dp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:src="@drawable/profile_copy"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginBottom="13dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="70dp"
+                    tools:ignore="UnusedAttribute" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/contacts_copy_2"
+                    android:layout_marginStart="70dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="34dp"
+                    android:layout_marginBottom="13dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="70dp"
+                    android:layout_marginRight="34dp"
+                    tools:ignore="UnusedAttribute" />
+
+            </LinearLayout>
+
+
+
+
+
+
+        </RelativeLayout>
+
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:visibility="visible"
+            android:background="#34353b"
+            android:fitsSystemWindows="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_height="match_parent">
+
+                <include layout="@layout/nav_header_home"/>
+                <include layout="@layout/navigation_items"
+                    app:homeviewmodel="@{homeviewmodel}"
+                    />
+
+            </LinearLayout>
+
+
+
+        </com.google.android.material.navigation.NavigationView>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+
+
+
+</FrameLayout>
+
+
+
+
+</layout>

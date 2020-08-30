@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:id="@+id/ll_adapter_full_view"
+        android:layout_height="wrap_content">
+<!--        android:background="?attr/selectableItemBackground"-->
+
+        <androidx.cardview.widget.CardView
+            app:cardCornerRadius="10dp"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="#1a1c26"
+            android:id="@+id/ll_orders_view"
+            android:layout_marginStart="17dp"
+            android:layout_marginEnd="17dp"
+            android:layout_height="127dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/notification_background"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:background="@drawable/custom_ripple"
+                        android:layout_height="match_parent">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1.5"
+
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:id="@+id/tv_date"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginTop="20dp"
+                                android:fontFamily="@font/rubik_regular"
+                                android:textColor="#8c8d8e"
+                                android:letterSpacing="0.02"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                android:id="@+id/tv_title1"
+                                android:maxLines="1"
+                                android:layout_marginTop="6dp"
+                                android:layout_marginStart="20dp"
+                                android:textColor="#e2e2e2"
+                                android:singleLine="true"
+                                android:fontFamily="@font/futura_medium"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:singleLine="true"
+                                android:maxLines="1"
+
+                                android:layout_marginTop="2dp"
+                                android:layout_marginStart="20dp"
+                                android:textColor="#8c8d8e"
+                                android:id="@+id/tv_title2"
+
+                                android:fontFamily="@font/rubik_regular"
+                                android:letterSpacing="0.02"
+                                />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="12dp"
+                                android:layout_marginStart="20dp"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:fontFamily="@font/futura_medium"
+                                    android:textColor="#e2e2e2"
+                                    android:text="@string/fee"
+                                    />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:textColor="#e2e2e2"
+                                    android:layout_marginStart="4dp"
+                                    android:text="₹" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:textColor="#e2e2e2"
+                                    android:id="@+id/tv_amount"
+                                    android:layout_marginStart="2dp"
+                                    android:fontFamily="@font/futura_medium"
+                                    android:layout_marginLeft="2dp" />
+
+                            </LinearLayout>
+
+
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight=".5"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:layout_gravity="end"
+                                android:layout_marginTop="22dp"
+                                android:layout_marginEnd="22dp"
+                                android:textColor="#8c8d8e"
+                                android:fontFamily="@font/rubik_regular"
+                                android:letterSpacing="0.02"
+                                android:id="@+id/tv_time"
+
+                                android:layout_marginRight="22dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</layout>
+

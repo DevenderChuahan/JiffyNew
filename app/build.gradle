@@ -1,0 +1,193 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.mob.sdk'
+
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+    defaultConfig {
+        applicationId "in.jiffycharge.gopower"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        resValue("string", "mob_app_key", project.mobAppKey)
+        resValue("string", "mob_app_secret", project.mobAppSecret)
+    }
+    configurations {
+        ///QR code ZXING
+        compile.exclude group: 'com.google.zxing'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    MobSDK {
+        appKey project.mobAppKey
+        appSecret project.mobAppSecret
+        SMSSDK {
+            gui false
+//        autoSMS true
+            version "3.2.1"
+        }
+    }
+
+
+//    dataBinding {
+//        enabled = true
+//    }
+
+    buildFeatures {
+
+        dataBinding = true
+
+        // for view binding:
+        // viewBinding = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+ext {
+    oltu_version = "1.0.1"
+
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.navigation:navigation-fragment:2.3.0'
+    implementation 'androidx.navigation:navigation-ui:2.3.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+
+    implementation 'com.squareup.retrofit2:converter-scalars:2.6.0'
+    // Koin
+    implementation "org.koin:koin-android:2.0.1"
+    implementation 'org.koin:koin-androidx-viewmodel:2.0.1'
+    implementation 'org.koin:koin-androidx-scope:2.0.1'
+    //Meterial Design Dependency
+    implementation 'com.google.android.material:material:1.2.0'
+    // retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+// ViewModel
+    def lifecycle_version = "2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    // Add Dagger dependencies
+    def dagger = "2.23.2"
+    implementation "com.google.dagger:dagger:$dagger"
+    kapt "com.google.dagger:dagger-compiler:$dagger"
+    //Rx3 Dependency
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+    //country code picker
+    implementation 'com.hbb20:ccp:2.3.9'
+    //facebook
+    implementation 'com.facebook.android:facebook-login:5.15.3'
+    //gooogle sign in
+//    implementation 'com.google.android.gms:play-services-auth:18.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.android.support:multidex:1.0.3'
+
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-3'
+//for QR code
+    implementation 'com.google.android.gms:play-services-vision:20.1.1'
+    //cardview
+    implementation "androidx.cardview:cardview:1.0.0"
+    //sms Retrieve
+    implementation "com.google.android.gms:play-services-auth-api-phone:17.4.0"
+    implementation 'com.google.android.gms:play-services-base:17.3.0'
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    //firebase auth
+//    implementation 'com.google.firebase:firebase-auth:19.3.2'
+    //google api for otp read directly from phone while payment gateway send otp
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:17.4.0'
+    //google map search location on  map
+    implementation 'com.google.android.libraries.places:places:2.3.0'
+
+    //circule image view
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    //couroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0"
+
+    //anko
+    implementation 'org.jetbrains.anko:anko-sdk15:0.8.2'
+    //klaxon
+    implementation 'com.beust:klaxon:0.30'
+
+    //QR code
+//    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+//    implementation 'me.dm7.barcodescanner:core:1.9'
+//    implementation 'me.dm7.barcodescanner:zxing:1.9.8'
+    implementation 'com.github.yuzhiqiang1993:zxing:2.2.8'
+
+
+
+//    implementation 'com.journeyapps:zxing-android-embedded:3.6.0@aar'
+//    implementation  'com.google.zxing:core:3.4.0'
+//
+//    implementation 'com.budiyev.android:code-scanner:2.1.0'
+
+
+    //Oauth 2
+    api("org.apache.oltu.oauth2:org.apache.oltu.oauth2.client:$oltu_version") {
+        exclude group: 'org.apache.oltu.oauth2', module: 'org.apache.oltu.oauth2.common'
+    }
+    // Scaller Converter Factory
+    implementation 'com.squareup.retrofit2:converter-scalars:2.6.0'
+
+    //cashefree
+    implementation files('libs/cashfreesdk-1.0-release.aar')
+
+//    implementation(name: 'cashfreesdk-1.0-release', ext: 'aar')
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    //event bus
+    implementation 'org.greenrobot:eventbus:3.2.0'
+    //Precess button on login
+    implementation 'com.github.dmytrodanylyk.android-process-button:library:1.0.0'
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

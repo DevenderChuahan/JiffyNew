@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/white_border"
+        android:layout_height="200dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:id="@+id/tv_yet"
+            android:layout_gravity="center"
+            android:fontFamily="@font/futura_medium"
+            android:textColor="#e2e2e2"
+            android:text="You have not paid the deposit yet"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:text="Pay Deposit "
+            android:id="@+id/btn_deposit"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</LinearLayout>

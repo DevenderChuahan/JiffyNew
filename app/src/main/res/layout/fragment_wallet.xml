@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="walletVmodel"
+            type="in.jiffycharge.gopower.viewmodel.WalletViewModel" />
+
+
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.wallet.WalletFragment">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:background="#34353b"
+                android:gravity="start|center"
+                android:layout_height="68dp">
+                <LinearLayout
+                    android:layout_width="48dp"
+                    android:gravity="center"
+                    android:layout_marginStart="17dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:id="@+id/wallet_back"
+                    android:focusable="true"
+                    android:layout_marginLeft="17dp">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/path_3"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#e2e2e2"
+                    android:text="Wallet"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="start|center"
+                    android:fontFamily="@font/futura_medium"
+                    android:layout_marginLeft="10dp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="match_parent"
+                android:background="#101010">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="16dp">
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="119dp">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:layout_gravity="start"
+                                android:fontFamily="@font/futura_medium"
+                                android:textColor="#e2e2e2"
+                                android:text="Wallet Balance" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="3dp"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="38sp"
+                                    android:textColor="#e2e2e2"
+                                    tools:text="₹"
+                                    />
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="38sp"
+                                    android:layout_marginStart="4dp"
+                                    android:textColor="#e2e2e2"
+                                    android:text="@{walletVmodel.wallet_balance}"
+                                    android:layout_marginLeft="4dp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="end|center"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/rubik_regular"
+                                android:textColor="#25d0fc"
+                                android:letterSpacing="0.02"
+                                android:text="+ Add Funds" />
+
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#4b4949"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="119dp">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18sp"
+                                    android:textColor="#e2e2e2"
+                                    android:text="₹"
+                                    />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18sp"
+                                    android:layout_marginStart="2dp"
+                                    android:fontFamily="@font/futura_medium"
+                                    android:textColor="#e2e2e2"
+                                    android:text="@{walletVmodel.deposit_amount}"
+                                    android:layout_marginLeft="2dp" />
+                            </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:layout_marginTop="4dp"
+                                android:layout_gravity="start"
+                                android:fontFamily="@font/rubik_regular"
+                                android:textColor="#8c8d8e"
+                                android:letterSpacing="0.02"
+                                android:text="Deposit Amount" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="end|center"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/rubik_regular"
+                                android:textColor="#25d0fc"
+                                android:letterSpacing="0.02"
+                                android:gravity="end"
+                                android:text="Withdraw Funds" />
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+        <include layout="@layout/bottom_sheet"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</layout>

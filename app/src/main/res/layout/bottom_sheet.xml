@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/bottom_sheet"
+    android:background="@drawable/rounded_dialog"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="266dp">
+    <ImageView
+        android:layout_width="80dp"
+        android:background="#4d545a"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_height="4dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginTop="18dp"
+            android:textColor="#e2e2e2"
+            android:fontFamily="@font/futura_medium"
+            android:text="@string/transaction_history"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/rubik_regular"
+            android:textColor="#8c8d8e"
+            android:letterSpacing="0.02"
+            android:text="@string/swipe_up_to_see_all_transactions"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            android:background="#1a1c26"/>
+
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/wallet_rv"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:id="@+id/ll_wallet_no_history"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:textColor="#e2e2e2"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/futura_medium"
+                android:gravity="center_horizontal"
+                android:text="@string/no_transaction_history"
+                />
+        </LinearLayout>
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:indeterminate="true"
+            android:id="@+id/wallet_loader"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:indeterminateDrawable="@drawable/custom_progressbar"
+            android:layout_height="200dp"/>
+
+
+
+
+    </FrameLayout>
+
+
+
+</LinearLayout>

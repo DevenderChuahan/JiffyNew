@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="orderDetailsVmodel"
+            type="in.jiffycharge.gopower.viewmodel.Orders_view_model" />
+
+    </data>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="#101010"
+        android:layout_height="match_parent"
+        tools:context=".view.orders.ViewOrderFragment">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="#34353b"
+            android:gravity="start|center"
+            android:layout_height="68dp">
+            <LinearLayout
+                android:layout_width="48dp"
+                android:gravity="start|center"
+                android:layout_marginStart="17dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:id="@+id/vieworder_back"
+                android:focusable="true"
+                android:layout_marginLeft="17dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/back"
+                    android:layout_height="match_parent"/>
+
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/futura_medium"
+                android:textColor="#e2e2e2"
+                android:text="My Orders"
+                android:layout_marginLeft="10dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="201dp">
+            <fragment
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:id="@+id/Order_map_frg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginStart="17dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="17dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/rubik_regular"
+                    android:textColor="#8c8d8e"
+                    android:letterSpacing="0.02"
+                    android:text="Order ID: "
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:id="@+id/tv_code"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/rubik_regular"
+                    android:textColor="#8c8d8e"
+                    android:letterSpacing="0.02"
+                    android:text="@{orderDetailsVmodel.order_code_txt}"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/futura_medium"
+                        android:textColor="#e2e2e2"
+                        android:text="Duration (mins)"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="38sp"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="@font/futura_medium"
+                        android:textColor="#e2e2e2"
+                        android:text="@{orderDetailsVmodel.duration_mins}"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="#e2e2e2"
+                        android:fontFamily="@font/futura_medium"
+                        android:text="Duration (cost)"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="38sp"
+                            android:layout_marginTop="4dp"
+                            android:textColor="#e2e2e2"
+                            android:text="₹"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="38sp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginStart="4dp"
+                            android:textColor="#e2e2e2"
+                            android:fontFamily="@font/futura_medium"
+                            android:text="@{orderDetailsVmodel.duration_cost}"
+                            android:layout_marginLeft="4dp" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="57dp"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="#e2e2e2"
+                        android:text="Start Time: "
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="#25d0fc"
+                        android:text="@{orderDetailsVmodel.strat_time}"
+                        />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="#e2e2e2"
+                        android:text="End Time: "
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="#25d0fc"
+                        android:text="@{orderDetailsVmodel.end_time}"
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_marginTop="20dp"
+                android:textColor="#e2e2e2"
+                android:fontFamily="@font/futura_medium"
+                android:text="Pick Up Address:"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/rubik_regular"
+                android:textColor="#8c8d8e"
+                android:letterSpacing="0.02"
+                android:text="@{orderDetailsVmodel.pick_up_address}"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/futura_medium"
+                android:textColor="#e2e2e2"
+                android:text="Drop Address:"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/rubik_regular"
+                android:textColor="#8c8d8e"
+                android:letterSpacing="0.02"
+                android:text="@{orderDetailsVmodel.drop_address}"
+                />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</layout>

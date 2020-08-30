@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="Profile" />
+        <item
+            android:id="@+id/home_drawer"
+            android:title="Home" />
+        <item
+            android:id="@+id/subscription"
+            android:title="Subscription" />
+        <item
+            android:id="@+id/myorder"
+            android:title="My Order" />
+        <item
+            android:id="@+id/wallet"
+            android:title="Wallet" />
+        <item
+            android:id="@+id/coupon"
+            android:title="Coupons" />
+        <item
+            android:id="@+id/supprot"
+            android:title="Support" />
+    </group>
+<item android:title=" ">
+    <menu>
+        <item
+            android:id="@+id/logout"
+            android:title="log out" />
+        <item
+            android:id="@+id/version"
+            android:title="version 1.2.1" />
+    </menu>
+
+</item>
+
+</menu>

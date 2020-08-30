@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="#34353b"
+        android:gravity="start|center"
+        android:layout_height="68dp">
+        <LinearLayout
+            android:layout_width="48dp"
+            android:gravity="center"
+            android:layout_marginStart="17dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:id="@+id/power_back"
+            android:focusable="true"
+            android:layout_marginLeft="17dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:src="@drawable/path_3"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="#e2e2e2"
+            android:text="Please select your type first."
+            android:layout_marginStart="10dp"
+            android:layout_gravity="start|center"
+            android:fontFamily="@font/futura_medium"
+            android:layout_marginLeft="10dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:id="@+id/tv_name"
+        android:text="Please select your type first."
+        android:layout_marginStart="10dp"
+        android:layout_gravity="start|center"
+        android:fontFamily="@font/futura_medium"
+        android:layout_marginLeft="10dp" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/black"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:id="@+id/tv_rate"
+        android:text="Please select your type first."
+        android:layout_marginStart="10dp"
+        android:layout_gravity="start|center"
+        android:fontFamily="@font/futura_medium"
+        android:layout_marginLeft="10dp" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/black"/>
+ <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:id="@+id/tv_phone_no"
+        android:text="Please select your type first."
+        android:layout_marginStart="10dp"
+        android:layout_gravity="start|center"
+        android:fontFamily="@font/futura_medium"
+        android:layout_marginLeft="10dp" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/black"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="30dp"
+        android:text="Please select your type first."
+        android:layout_marginStart="10dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/futura_medium"
+        android:layout_marginLeft="10dp" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/black"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:background="@drawable/login_border"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:background="@drawable/login_border"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tv_type"
+                android:paddingEnd="5dp"
+                android:layout_centerHorizontal="true"
+                android:text="Choose a type"
+                android:fontFamily="@font/futura_medium"
+                android:layout_marginLeft="10dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_margin="10dp"
+                android:layout_below="@+id/tv_type"
+                android:text="iOS/Android/Type-C"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="start|center"
+                android:fontFamily="@font/futura_medium"
+                android:layout_marginLeft="10dp" />
+
+
+        </RelativeLayout>
+
+
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:enabled="false"
+        android:id="@+id/btn_lend"
+        android:layout_height="wrap_content"
+        android:text="Borrow"/>
+
+
+
+</LinearLayout>

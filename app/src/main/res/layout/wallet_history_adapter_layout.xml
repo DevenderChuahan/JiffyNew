@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:background="#2c2e3b"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="#1a1c26"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:id="@+id/tv_top_up_type"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/rubik_regular"
+                android:text="Top UP"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="7dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#e2e2e2"
+                    android:text="₹"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:layout_marginStart="4dp"
+                    android:textColor="#e2e2e2"
+                    android:text="500"
+                    android:id="@+id/tv_amount"
+                    android:layout_marginLeft="2dp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="20dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/rubik_regular"
+                    android:textColor="#8c8d8e"
+                    android:id="@+id/tv_date"
+                    android:letterSpacing="0.02"
+                    android:text="12 march, 2020"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="."
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:textColor="#8c8d8e"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/rubik_regular"
+                    android:textColor="#8c8d8e"
+                    android:id="@+id/tv_time"
+                    android:letterSpacing="0.02"
+                    android:text="2:40 PM"
+                    />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>
+

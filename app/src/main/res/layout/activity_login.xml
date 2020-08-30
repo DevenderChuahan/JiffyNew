@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/lib/com.dd.processbutton"
+    android:background="@color/loginBackground"
+    android:orientation="vertical"
+    tools:context="in.jiffycharge.gopower.view.login.LoginActivity">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="60dp"
+                android:src="@drawable/bitmap_copy" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginEnd="30dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:fontFamily="@font/my_custom_font"
+                    android:textColor="#e2e2e2"
+                    android:textSize="18sp"
+                    tools:text="@string/enter_phone_number" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="69dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/login_border">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <com.hbb20.CountryCodePicker
+                                android:id="@+id/ccp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="#34353b"
+                                android:gravity="center"
+                                app:ccp_autoDetectCountry="true"
+                                app:ccp_contentColor="#e2e2e2"
+                                app:ccp_defaultNameCode="IN"
+                                app:ccp_rememberLastSelection="true"
+                                app:ccp_showFlag="false"
+                                app:ccp_showNameCode="false"
+                                app:ccp_showPhoneCode="true"
+                                app:ccp_textSize="14sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:background="#34353b"
+
+                                android:gravity="center"
+                                android:textColor="#e2e2e2"
+                                android:textSize="14sp"
+                                android:visibility="gone" />
+
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="11dp"
+                        android:layout_marginLeft="11dp"
+                        android:background="@drawable/login_border">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#34353b" />
+
+                        <EditText
+                            android:id="@+id/et_enter_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:hint="@string/mobile_no_hint"
+                            android:saveEnabled="false"
+                            android:importantForAutofill="no"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:paddingStart="20dp"
+                            android:paddingLeft="20dp"
+                            android:paddingEnd="10dp"
+                            android:paddingRight="10dp"
+                            android:textColor="#e2e2e2"
+                            android:textColorHint="#e2e2e2"
+                            android:textCursorDrawable="@drawable/cursor_color"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/login_border">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#34353b" />
+
+                        <EditText
+                            android:id="@+id/et_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:hint="Enter Password"
+                            android:saveEnabled="false"
+                            android:importantForAutofill="no"
+                            android:imeOptions="actionDone"
+                            android:inputType="textFilter"
+                            android:paddingEnd="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingStart="20dp"
+                            android:paddingLeft="20dp"
+                            android:textColor="#e2e2e2"
+                            android:textColorHint="#e2e2e2"
+                            android:textCursorDrawable="@drawable/cursor_color"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="30dp"
+                    android:background="#25d0fc"
+                    app:cardCornerRadius="2dp"
+                    app:cardElevation="10dp">
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#25d0fc"
+                        android:fontFamily="@font/rubik_regular"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:letterSpacing="0.02"
+                        android:text="@string/Login"
+                        android:visibility="gone"
+                        android:textColor="#34353b"
+                        tools:targetApi="lollipop" />
+                    <com.dd.processbutton.iml.ActionProcessButton
+                        android:id="@+id/btn_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/Login"
+                        android:textColor="#34353b"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/rubik_regular"
+                        custom:pb_colorComplete="@color/green_complete"
+                        custom:pb_colorNormal="#25d0fc"
+                        app:pb_cornerRadius="2dp"
+                        custom:pb_colorPressed="@color/blue_pressed"
+                        custom:pb_colorProgress="@color/purple_progress"
+                        custom:pb_colorError="@color/red_error" />
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="30dp"
+                    android:background="#25d0fc"
+                    app:cardCornerRadius="2dp"
+                    app:cardElevation="10dp">
+
+                    <Button
+                        android:id="@+id/btn_sign_up_"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#25d0fc"
+                        android:fontFamily="@font/rubik_regular"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:letterSpacing="0.02"
+                        android:text="@string/sign_up"
+                        android:textColor="#34353b"
+                        tools:targetApi="lollipop" />
+
+                </androidx.cardview.widget.CardView>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:visibility="gone"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/ll_bottom"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="30dp"
+                        android:gravity="center"
+                        android:letterSpacing="0.02"
+                        android:text="@string/or_continue_with"
+                        android:textColor="#8c8d8e"
+                        android:textSize="12sp" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_bottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="148dp"
+                            android:layout_height="62dp"
+                            android:background="@drawable/google_button_border">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="#34353b"
+                                android:gravity="center">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="?attr/selectableItemBackground"
+                                    android:clickable="true"
+                                    android:focusable="true"
+
+                                    android:id="@+id/bt_google"
+                                    android:gravity="center">
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/google" />
+
+                                </RelativeLayout>
+
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="148dp"
+                            android:layout_height="62dp"
+                            android:layout_marginStart="19dp"
+                            android:layout_marginLeft="19dp"
+                            android:background="@drawable/google_button_border">
+
+                            <LinearLayout
+                                android:id="@+id/bt_facebook"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="#34353b"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/facebook" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:indeterminate="true"
+            android:id="@+id/pbr"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:indeterminateDrawable="@drawable/custom_progressbar"
+            android:layout_height="200dp"/>
+    </FrameLayout>
+
+
+
+</LinearLayout>
+
