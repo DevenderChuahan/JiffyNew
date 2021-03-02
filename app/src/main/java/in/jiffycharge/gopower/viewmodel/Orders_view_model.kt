@@ -2,6 +2,7 @@ package `in`.jiffycharge.gopower.viewmodel
 
 import `in`.jiffycharge.gopower.model.Order_Details_model
 import `in`.jiffycharge.gopower.repository.OrderRepository
+import `in`.jiffycharge.gopower.utils.Resourse
 import `in`.jiffycharge.gopower.view.orders.ViewOrderFragment
 import android.util.Log
 import androidx.annotation.MainThread
@@ -35,47 +36,59 @@ fun call_order_details(order_code:String)
         try {
              order_repo.get_order_view_deatils(order_code)
 
-            order_repo._detailes_list.observeForever(Observer<Order_Details_model> {
-
-
-                order_code_txt.set(it.item.orderCode)
-
-                val sdftime = SimpleDateFormat("h:mm a")
-                val start_Date = Date(it.item.beginTime!!.toLong())
-                val end_Date = Date(it.item.finishTime!!.toLong())
-                val Start_time = sdftime.format(start_Date)
-                val End_time = sdftime.format(end_Date)
-//
-//
-//
-                strat_time.set(Start_time.trim().toString())
-                end_time.set(End_time.trim().toString())
-//
-
-
-            duration_mins.set(it.item.rideTime.toString())
-                duration_cost.set(it.item.price.toString())
-//
-                if (it.item.beginLocationDetails.isNullOrEmpty())
+            order_repo._detailes_list.observeForever(Observer<Resourse<Order_Details_model>> {
+                when(it.status)
                 {
-                    pick_up_address.set("N/A")
+                    Resourse.Status.SUCCESS->
+                    {
+                        order_code_txt.set(it.data!!.item.orderCode)
 
-                }else
-                {
-                    pick_up_address.set(it.item.beginLocationDetails.toString())
+                        val sdftime = SimpleDateFormat("h:mm a")
+                        val start_Date = Date(it.data.item.beginTime!!.toLong())
+                        val end_Date = Date(it.data.item.finishTime!!.toLong())
+                        val Start_time = sdftime.format(start_Date)
+                        val End_time = sdftime.format(end_Date)
+//
+//
+//
+                        strat_time.set(Start_time.trim().toString())
+                        end_time.set(End_time.trim().toString())
+//
 
+
+                        duration_mins.set(it.data.item.rideTime.toString())
+                        duration_cost.set(it.data.item.price.toString())
+//
+                        if (it.data.item.beginLocationDetails.isNullOrEmpty())
+                        {
+                            pick_up_address.set("N/A")
+
+                        }else
+                        {
+                            pick_up_address.set(it.data.item.beginLocationDetails.toString())
+
+                        }
+
+
+                        if (it.data.item.endLocaitonDetails.isNullOrEmpty())
+                        {
+                            drop_address.set("N/A")
+
+                        }else
+                        {
+                            drop_address.set(it.data.item.endLocaitonDetails.toString())
+
+                        }
+
+
+                    }
+
+                    else ->
+                    {
+
+                    }
                 }
 
-
-                if (it.item.endLocaitonDetails.isNullOrEmpty())
-                {
-                    drop_address.set("N/A")
-
-                }else
-                {
-                    drop_address.set(it.item.endLocaitonDetails.toString())
-
-                }
 
 
 

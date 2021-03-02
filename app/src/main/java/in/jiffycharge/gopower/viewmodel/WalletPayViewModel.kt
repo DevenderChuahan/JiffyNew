@@ -17,9 +17,9 @@ class WalletPayViewModel(val walletPayRepo:WalletPayRepository):ViewModel() {
 
         paydata.postValue(Resourse.success( mutableListOf(
             WallerPayBean(
-                R.drawable.pay_img, "My wallet", null, WallerPayMark.BALANCE, false
+                R.drawable.wallet_copy, "My wallet", null, WallerPayMark.BALANCE, false
             ),
-            WallerPayBean(R.drawable.stripe_pay_icon_n, WallerPayMark.DEFAULT.markStr, null, WallerPayMark.DEFAULT, true)
+            WallerPayBean(R.drawable.cashfree, WallerPayMark.DEFAULT.markStr, null, WallerPayMark.DEFAULT, true)
         )))
 
 

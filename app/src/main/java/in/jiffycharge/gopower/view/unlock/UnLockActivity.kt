@@ -161,7 +161,7 @@ class UnLockActivity : AppCompatActivity() {
     private fun unlockFail() {
 //        MessageBus.post(ConsMessageCode.UNLOCK_FAIL, qrCode, false, MainActivity::class.java)
 //        EventBus.getDefault().post("$qrcode")
-        EventBus.getDefault().post("$qrcode")
+        EventBus.getDefault().post("qrcode")
 
         finish()
     }

@@ -1,17 +1,5 @@
 package `in`.jiffycharge.gopower.view.otp
 
-import android.content.Context
-import android.content.Intent
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.os.CountDownTimer
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import `in`.jiffycharge.gopower.utils.toast
-import `in`.jiffycharge.gopower.view.home.HomeActivity
-
-import kotlinx.android.synthetic.main.activity_otp.*
 import `in`.jiffycharge.gopower.R
 import `in`.jiffycharge.gopower.csp
 import `in`.jiffycharge.gopower.model.signup_mobile_model
@@ -19,10 +7,29 @@ import `in`.jiffycharge.gopower.setsp
 import `in`.jiffycharge.gopower.utils.Constants
 import `in`.jiffycharge.gopower.utils.Constants.Companion.initOkHttp
 import `in`.jiffycharge.gopower.utils.OAuthOkHttpClient
+import `in`.jiffycharge.gopower.utils.toast
+import `in`.jiffycharge.gopower.view.home.HomeActivity
+import `in`.jiffycharge.gopower.view.login.SMSBroadcastReceiver
 import `in`.jiffycharge.gopower.view.signUp.SignUpActivity
 import `in`.jiffycharge.gopower.view.signUp.SmsHelper
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.graphics.Color
+import android.os.Bundle
+import android.os.CountDownTimer
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.dd.processbutton.iml.ActionProcessButton
+import com.google.android.gms.auth.api.phone.SmsRetriever
+import kotlinx.android.synthetic.main.activity_otp.*
 import org.apache.oltu.oauth2.client.OAuthClient
 import org.apache.oltu.oauth2.client.request.OAuthClientRequest
 import org.apache.oltu.oauth2.client.response.OAuthJSONAccessTokenResponse
@@ -32,24 +39,28 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class OtpActivity : AppCompatActivity() {
-    protected  val smsHelper by lazy { SmsHelper.create() }
+class OtpActivity : AppCompatActivity(), SMSBroadcastReceiver.OTPReceiveListener {
+    protected val smsHelper by lazy { SmsHelper.create() }
+    private var smsReceiver: SMSBroadcastReceiver? = null
+    var broadcast_otp: String? = null
 
-    var code_sent:String?=null
-    var code_sent2:String?=null
-    var complete_no:String?=null
-    var password:String?=null
-    var country_code:String?=null
-    var country_code_without_plus:String?=null
-    var contact_no:String?=null
-     var context:Context?=null
-    var otp_flag:Boolean?=null
+    var code_sent: String? = null
+    var code_sent2: String? = null
+    var complete_no: String? = null
+    var password: String? = null
+    var country_code: String? = null
+    var country_code_without_plus: String? = null
+    var contact_no: String? = null
+    var context: Context? = null
+    var otp_flag: Boolean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_otp)
-        val intent=intent
-        context=this
+        val intent = intent
+        context = this
+        startSMSListener()
+
 
 //        otp_flag=false
         initOkHttp(this)
@@ -57,34 +68,36 @@ class OtpActivity : AppCompatActivity() {
 
 //        code_sent=intent.getStringExtra("sentcode")
 //        complete_no=intent.getStringExtra("complete_no")
-        password=intent.getStringExtra("password")
+        password = intent.getStringExtra("password")
 //        country_code=intent.getStringExtra("country_code")
-        country_code_without_plus=intent.getStringExtra("country_code_without_plus")
-        contact_no=intent.getStringExtra("contact_no")
+        country_code_without_plus = intent.getStringExtra("country_code_without_plus")
+        contact_no = intent.getStringExtra("contact_no")
         countDownTimer()
 
+        val edit = arrayListOf(edt_1,edt_2,edt_3,edt_4)
+        edt_1.addTextChangedListener(GenricTextWatcher(edt_1,edit))
+        edt_2.addTextChangedListener(GenricTextWatcher(edt_2,edit))
+        edt_3.addTextChangedListener(GenricTextWatcher(edt_3,edit))
+        edt_4.addTextChangedListener(GenricTextWatcher(edt_4,edit))
+
         btn_submit.setOnClickListener {
-            val _1Digit=edt_1.text.toString()
-            val _2Digit=edt_2.text.toString()
-            val _3Digit=edt_3.text.toString()
-            val _4Digit=edt_4.text.toString()
+            val _1Digit = edt_1.text.toString()
+            val _2Digit = edt_2.text.toString()
+            val _3Digit = edt_3.text.toString()
+            val _4Digit = edt_4.text.toString()
 //            val _5Digit=edt_5.text.toString()
 //            val _6Digit=edt_6.text.toString()
 
-            if(_1Digit.isNullOrEmpty())
-            {
+            if (_1Digit.isNullOrEmpty()) {
                 edt_1.requestFocus()
                 return@setOnClickListener
-            }else if(_2Digit.isNullOrEmpty())
-            {
+            } else if (_2Digit.isNullOrEmpty()) {
                 edt_2.requestFocus()
                 return@setOnClickListener
-            } else if(_3Digit.isNullOrEmpty())
-            {
+            } else if (_3Digit.isNullOrEmpty()) {
                 edt_3.requestFocus()
                 return@setOnClickListener
-            } else if(_4Digit.isNullOrEmpty())
-            {
+            } else if (_4Digit.isNullOrEmpty()) {
                 edt_4.requestFocus()
                 return@setOnClickListener
             }
@@ -97,19 +110,21 @@ class OtpActivity : AppCompatActivity() {
 //                edt_6.requestFocus()
 //                return@setOnClickListener
 //            }
-            else
-
-            {
-                val imm=getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(edt_1.windowToken,0)
-                imm.hideSoftInputFromWindow(edt_2.windowToken,0)
-                imm.hideSoftInputFromWindow(edt_3.windowToken,0)
-                imm.hideSoftInputFromWindow(edt_4.windowToken,0)
+            else {
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(edt_1.windowToken, 0)
+                imm.hideSoftInputFromWindow(edt_2.windowToken, 0)
+                imm.hideSoftInputFromWindow(edt_3.windowToken, 0)
+                imm.hideSoftInputFromWindow(edt_4.windowToken, 0)
 //                imm.hideSoftInputFromWindow(edt_5.windowToken,0)
 //                imm.hideSoftInputFromWindow(edt_6.windowToken,0)
 
 
-                pbr_otp.visibility=View.VISIBLE
+                pbr_otp.visibility = View.GONE
+                btn_submit.setMode(ActionProcessButton.Mode.ENDLESS)
+                btn_submit.progress = 1
+                btn_submit.text = "Loading..."
+
                 window.setFlags(
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
@@ -117,35 +132,33 @@ class OtpActivity : AppCompatActivity() {
 
 
 //                val entered_code=_1Digit+_2Digit+_3Digit+_4Digit+_5Digit+_6Digit
-                val entered_code=_1Digit+_2Digit+_3Digit+_4Digit
+                val entered_code = _1Digit + _2Digit + _3Digit + _4Digit
 
 
 
-                smsHelper.verification(country_code_without_plus,contact_no,entered_code)
+                smsHelper.verification(country_code_without_plus, contact_no, entered_code)
                 {
 
                     runOnUiThread {
-                        if (it)
-                        {
+                        if (it) {
 
                             window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                             call_api()
 
 
-                        }else
-                        {
+                        } else {
                             //Failed to send verification code
 
                             toast("Verification code Error")
                             pbr_otp.visibility = View.GONE
+                            btn_submit.progress =0
+                            btn_submit.text="SUBMIT"
+
                             window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 
 
                         }
                     }
-
-
-
 
 
                 }
@@ -168,7 +181,7 @@ class OtpActivity : AppCompatActivity() {
         }
 
         txt_resend.setOnClickListener {
-            pbr_otp.visibility=View.VISIBLE
+            pbr_otp.visibility = View.VISIBLE
             edt_1.setText("")
             edt_2.setText("")
             edt_3.setText("")
@@ -177,22 +190,19 @@ class OtpActivity : AppCompatActivity() {
 //            edt_6.setText("")
 
 
-            smsHelper.send(country_code_without_plus,contact_no)
+            smsHelper.send(country_code_without_plus, contact_no)
             {
 
                 runOnUiThread {
-                    if (it)
-                    {
+                    if (it) {
                         //Verification code sent successfully
 
-                        pbr_otp.visibility= View.GONE
+                        pbr_otp.visibility = View.GONE
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                                    countDownTimer()
+                        countDownTimer()
 
 
-
-                    }else
-                    {
+                    } else {
                         //Failed to send verification code
 
                         toast("Verification code failed to send")
@@ -205,15 +215,10 @@ class OtpActivity : AppCompatActivity() {
                 }
 
 
-
-
-
             }
 
 
-
 //            otp_flag=false
-
 
 
             window.setFlags(
@@ -255,34 +260,62 @@ class OtpActivity : AppCompatActivity() {
 
     }
 
+    private fun startSMSListener() {
+
+        try {
+            smsReceiver = SMSBroadcastReceiver()
+            smsReceiver!!.iniOTPListener(this)
+
+            val intentFilter = IntentFilter()
+            intentFilter.addAction(SmsRetriever.SMS_RETRIEVED_ACTION)
+            this.registerReceiver(smsReceiver, intentFilter)
+
+            val client = SmsRetriever.getClient(this)
+
+            val task = client.startSmsRetriever()
+            task.addOnSuccessListener {
+                // API successfully started
+            }
+
+            task.addOnFailureListener {
+                // Fail to start API
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         lifecycle.removeObserver(smsHelper)
+        if (smsReceiver != null) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(smsReceiver!!)
+        }
     }
 
     private fun countDownTimer() {
-       object :CountDownTimer(20000,1000)
-       {
-           override fun onTick(millisUntilFinished: Long) {
-               txt_resend.isClickable=false
+        object : CountDownTimer(20000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                txt_resend.isClickable = false
 
-               txt_timer.visibility=View.VISIBLE
-               txt_resend.text= getString(R.string.resend_code_in)
-               txt_timer.text= (millisUntilFinished/1000).toString().plus(" sec")
+                txt_timer.visibility = View.VISIBLE
+                txt_resend.text = getString(R.string.resend_code_in)
+                txt_timer.text = (millisUntilFinished / 1000).toString().plus(" sec")
 
-           }
+            }
 
-           override fun onFinish() {
-               txt_resend.text= getString(R.string.resend)
-               txt_resend.setTextSize(16f)
-               txt_resend.setTextColor(Color.parseColor("#25d0fc"))
-               txt_timer.visibility=View.GONE
-               txt_resend.isClickable=true
+            override fun onFinish() {
+                txt_resend.text = getString(R.string.resend)
+                txt_resend.setTextSize(16f)
+                txt_resend.setTextColor(Color.parseColor("#25d0fc"))
+                txt_timer.visibility = View.GONE
+                txt_resend.isClickable = true
 
 
-           }
+            }
 
-       }.start()
+        }.start()
 
     }
 
@@ -313,14 +346,18 @@ class OtpActivity : AppCompatActivity() {
 //    }
 
     private fun call_api() {
-        create_token_using_moobile_no("$country_code_without_plus-$contact_no", password!!, GrantType.CLIENT_CREDENTIALS)
+        create_token_using_moobile_no(
+            "$country_code_without_plus-$contact_no",
+            password!!,
+            GrantType.CLIENT_CREDENTIALS
+        )
         { throwable: Throwable?, token ->
             val accessToken = token?.accessToken!!.trim()
             Log.e("OTP Access Oken", accessToken)
 
             runOnUiThread {
-                if (accessToken!==null) {
-                    context!!.setsp("token",accessToken)
+                if (accessToken !== null) {
+                    context!!.setsp("token", accessToken)
                     mobile_sign_up_api()
 
 
@@ -355,50 +392,55 @@ class OtpActivity : AppCompatActivity() {
                 client.shutdown()
             }
 
-        }catch (e:Exception)
-        {
+        } catch (e: Exception) {
             e.printStackTrace()
-            pbr_otp.visibility=View.GONE
+            pbr_otp.visibility = View.GONE
 
 
         }
 
 
-
     }
-
 
 
     private fun mobile_sign_up_api() {
 //        context!!.setsp("token","2f480081-04fe-4625-9bd7-931ceefe2a65")
 
-        val service= context?.let { Constants.getApiService(it) }
-        val call=service!!.signUp(country_code_without_plus,contact_no,"",password )
-        call.enqueue(object : Callback<signup_mobile_model>
-        {
+        val service = context?.let { Constants.getApiService(it) }
+        val call = service!!.signUp(country_code_without_plus, contact_no, "", password)
+        call.enqueue(object : Callback<signup_mobile_model> {
             override fun onResponse(
                 call: Call<signup_mobile_model>,
                 response: Response<signup_mobile_model>
             ) {
-                if(response.isSuccessful) {
-                    Log.e("api Response","${response.body()}")
+                if (response.isSuccessful) {
+                    Log.e("api Response", "${response.body()}")
                     val body_response = response.body()!!.success
                     if (body_response) {
-                        pbr_otp.visibility=View.GONE
+                        pbr_otp.visibility = View.GONE
                         toast("Login Success")
+                        btn_submit.progress = 100
+                        btn_submit.text = "SignUp Success"
+
                         go_to_homme()
                     } else {
                         toast(response.body()!!.error_description.toString())
-                        pbr_otp.visibility=View.GONE
+                        pbr_otp.visibility = View.GONE
+                        btn_submit.progress = -1
+                        btn_submit.text = "Error"
+
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         csp().edit().clear().apply()
 
                         call_sign_up()
 
                     }
-                }else{
+                } else {
                     toast(response.body().toString())
-                    pbr_otp.visibility=View.GONE
+                    pbr_otp.visibility = View.GONE
+                    btn_submit.progress = -1
+                    btn_submit.text = "Error"
+
                     window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                     csp().edit().clear().apply()
 
@@ -408,7 +450,10 @@ class OtpActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<signup_mobile_model>, t: Throwable) {
                 toast(t.toString())
-                pbr_otp.visibility=View.GONE
+                pbr_otp.visibility = View.GONE
+                btn_submit.progress = -1
+                btn_submit.text = "Error"
+
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 csp().edit().clear().apply()
 
@@ -420,7 +465,7 @@ class OtpActivity : AppCompatActivity() {
 
     private fun call_sign_up() {
 
-        startActivity(Intent(this,SignUpActivity::class.java))
+        startActivity(Intent(this, SignUpActivity::class.java))
         finish()
 
     }
@@ -433,9 +478,106 @@ class OtpActivity : AppCompatActivity() {
 
 
     private fun go_to_homme() {
-        val intent = Intent (this, HomeActivity::class.java)
+        val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
         finish()
     }
+
+    override fun onOTPReceived(otp: String) {
+        broadcast_otp = otp
+
+        toast(otp)
+
+        if (smsReceiver != null) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(smsReceiver!!)
+        }
+
+
+    }
+
+    override fun onOTPTimeOut() {
+
+
+    }
+
+    public class GenricTextWatcher(
+       val view: EditText,
+       val edittext: ArrayList<EditText>
+    ) : TextWatcher {
+
+//        private var edittext: Array<EditText?>? = null
+//        private var view: View? = null
+
+
+//        fun GenericTextWatcher(
+//            view: View?,
+//            editText: Array<EditText?>
+//        ) {
+//            this.edittext = editText
+//            this.view = view
+//        }
+
+        override fun afterTextChanged(editable: Editable?) {
+
+            var text = editable.toString()
+
+            when (view.id) {
+
+                R.id.edt_1 -> {
+                    if(text.length==1)
+                    {
+                        edittext[1].requestFocus()
+
+                    }
+
+                }
+                R.id.edt_2 -> {
+
+                    if(text.length==1)
+                    {
+                        edittext[2].requestFocus()
+
+                    } else if(text.isEmpty())
+                    {
+                        edittext[0].requestFocus()
+
+                    }
+
+                }
+                R.id.edt_3 -> {
+                    if(text.length==1)
+                    {
+                        edittext[3].requestFocus()
+
+                    } else if(text.isEmpty())
+                    {
+                        edittext[1].requestFocus()
+
+                    }
+                }
+                R.id.edt_4 -> {
+                    if(text.isEmpty())
+                    {
+                        edittext[2].requestFocus()
+
+                    }
+                }
+               
+
+
+            }
+
+
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+
+
+    }
+
 
 }

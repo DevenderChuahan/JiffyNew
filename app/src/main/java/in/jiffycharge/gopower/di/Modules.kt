@@ -3,6 +3,7 @@ package `in`.jiffycharge.gopower.di
 import `in`.jiffycharge.gopower.network.ApiInterface
 import `in`.jiffycharge.gopower.getsp
 import `in`.jiffycharge.gopower.repository.*
+import `in`.jiffycharge.gopower.utils.Constants.Companion.base_url
 import `in`.jiffycharge.gopower.viewmodel.*
 import android.app.Application
 import android.content.Context
@@ -19,6 +20,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 val netModule = module {
 
@@ -30,11 +32,14 @@ val netModule = module {
 
     fun provideOntercepter(context:Context):Interceptor {
 
-        return authInterceptor(context)
+        return AuthInterceptor(context)
     }
 
     fun provideHttpClient(cache: Cache, intercepter:Interceptor): OkHttpClient {
         val okhttpclientBuilder = OkHttpClient.Builder().cache(cache).addInterceptor(intercepter)
+            okhttpclientBuilder.retryOnConnectionFailure(true)
+        okhttpclientBuilder.connectTimeout(30,TimeUnit.SECONDS)
+        okhttpclientBuilder.readTimeout(30,TimeUnit.SECONDS)
         return okhttpclientBuilder.build()
 
 
@@ -121,11 +126,12 @@ val WalletPayRepo= module {
 }
 val walletpaymodel= module {
     viewModel { WalletPayViewModel(get()) }
+
 }
 
 
 
-class authInterceptor(val context: Context) : Interceptor {
+class AuthInterceptor(val context: Context) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestBuilder = chain.request().newBuilder()
@@ -136,7 +142,7 @@ class authInterceptor(val context: Context) : Interceptor {
 
 //            requestBuilder.addHeader("Authorization", "$credentials ")
             requestBuilder.addHeader("Authorization", "Bearer $it")
-//            requestBuilder.addHeader("Authorization", "$it")
+                .addHeader("Connection","close")
 
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "application/json;versions=1")

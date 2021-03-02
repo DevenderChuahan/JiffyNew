@@ -1,6 +1,7 @@
 package `in`.jiffycharge.gopower.network
 
 import `in`.jiffycharge.gopower.model.*
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -53,7 +54,8 @@ interface ApiInterface {
 
 // Nearest Shop Location  api
     @GET("seller/find_by_location")
-    suspend fun getNearShopLocation(@Query("x") x:BigDecimal, @Query("y") y:BigDecimal, @Query("distance") distance:BigDecimal):Response<Find_Near_Shop_Location_Model>
+    suspend fun getNearShopLocation(@Query("x") x:BigDecimal, @Query("y") y:BigDecimal,
+                                    @Query("distance") distance:Int):Response<Find_Near_Shop_Location_Model>
 
 //get otp from server
 @GET("member/send_modile_verifycode")
@@ -67,7 +69,11 @@ suspend fun getdeposit():Response<DepositModel>
     @POST("member/paymet")
     suspend fun paymnetUsingPost(@Query("paymentMark")paymentMark:String,@Query("returnUrl")returnUrl:String):Response<CashfreeModel>
 
-    //Cashfree payment result
+    //Razorpay Order ID
+    @POST("v1/orders")
+     fun getRazorpayOrderId(@Header("Authorization")auth:String, @Body map: HashMap<String,String>):Call<RazorpayOrder>
+
+  //Cashfree payment result
     @POST("member/payNotify")
     suspend fun upCashFreePayResult(@Body result:CashFreeVOModel):Response<CashfreeResultResponseModel>
 
@@ -98,13 +104,40 @@ suspend fun getdeposit():Response<DepositModel>
     @POST("order/coupon_list")
     suspend fun findCouponListUsingPOST():Response<CouponListModel>
 
+// get Coupon lIst
+    @POST("member/listCoupon")
+    suspend fun findMemberCouponListUsingPOST():Response<MemberCouponListModel>
+
+    @GET("money/pay_amount_list")
+    suspend fun findPayAmountListUsingGET():Response<PayAmountListModel>
     // get System Set
     @GET("param/query_sys_set")
     suspend fun querySysSetUsingGET():Response<SystemSetModel>
  // payment using post
     @POST("order/paymet")
-    suspend fun paymetUsingPOST(@Query("orderCode")orderCode:String,@Query("cid")cid:Int,
-                                @Query("paymentMark")paymentMark:String,
-                                @Query("returnUrl")returnUrl:String):Response<PayDetailsModel>
+    suspend fun paymetUsingPOST(@Query("orderCode") orderCode:String,
+                                @Query("paymentMark") paymentMark:String,
+                                @Query("returnUrl") returnUrl:String):Response<PayDetailsModel>
+
+    @POST("money/paymet_balance")
+    suspend fun paymetBalanceUsingPOST(@Query("payAmountId") payAmountId:Int,
+                                @Query("paymentMark") paymentMark:String,
+                                @Query("returnUrl") returnUrl:String):Response<CashfreeModel>
+
+    @Multipart
+   @POST("fs/upload")
+    suspend fun uploadFileV2UsingPOST(
+       @Part("fileType")fileType:String,@Part("file\"; filename=\"file\"")paramRequestBody:RequestBody
+   ):Response<FileUploadResposeModel>
+
+    @GET("member/modify_user_head")
+    suspend fun modifyUserHeadUsingGET(@Query("headImgUrl")headImgUrl:String):Response<SimpleResponse>
+
+  @GET("member/feedback_type_list")
+    suspend fun findFeedbackTypeListUsingGET(@Header("Accept-Language") language:String,@Query("type")type:String):Response<FeedbacktypelistModel>
+
+
+ @POST("member/feedback")
+    suspend fun feedbackUsingPOST(@Body body:FeedbackVO):Response<CashfreeResultResponseModel>
 
 }

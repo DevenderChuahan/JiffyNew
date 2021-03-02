@@ -10,8 +10,8 @@
     android:focusable="true"
     android:background="@drawable/rounded_dialog"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-    app:behavior_hideable="false"
-    app:behavior_peekHeight="112dp">
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="250dp">
     <ImageView
         android:layout_width="80dp"
         android:background="#4d545a"
@@ -41,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:id="@+id/tv_location_name"
+                    android:id="@+id/tv_name"
                     android:fontFamily="@font/futura_medium"
                     android:textColor="#e2e2e2"
                     android:text="Appolo Hospital"
@@ -51,6 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
+                    android:id="@+id/tv_rate"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/rubik_regular"
                     android:textColor="#8c8d8e"
@@ -61,6 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
+                    android:id="@+id/tv_phone_no"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/rubik_regular"
                     android:textColor="#25d0fc"
@@ -99,6 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
+            android:id="@+id/tv_type"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/futura_medium"
             android:textColor="#e2e2e2"
@@ -230,6 +233,15 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:src="@drawable/group_8"
+                        android:visibility="gone"
+                        android:layout_height="wrap_content"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:text="Borrow"
+                        android:id="@+id/btn_lend"
+                        android:enabled="false"
+                        android:background="@drawable/rounded_back"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>

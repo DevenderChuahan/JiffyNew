@@ -3,11 +3,11 @@ package `in`.jiffycharge.gopower.model
 import java.io.Serializable
 
 data class ItemXXXXXXXXX(
-    val amount: Int,
-    val cityId: String,
-    val cityName: String,
-    val currency: String,
-    val expireDate: String,
-    val id: Int,
-    val source: String
+    var amount: Int,
+    var cityId: String,
+    var cityName: String,
+    var currency: String,
+    var expireDate: String,
+    var id: Int,
+    var source: String
 ):Serializable

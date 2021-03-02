@@ -11,6 +11,7 @@ class WallerPayBean(@DrawableRes val logo: Int,
 enum class WallerPayMark(val markStr: String) {
     BALANCE("balance"),
     CASHFREE("cashfree"),
+    RAZORPAY("razorpay"),
     STRIPE("stripe"),
     FONDY("fondy"),
     DEFAULT("cashfree");

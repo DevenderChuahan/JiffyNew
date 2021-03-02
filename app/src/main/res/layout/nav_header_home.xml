@@ -41,7 +41,6 @@
                 android:fontFamily="@font/futura_medium"
                 android:layout_marginTop="10dp"
                 android:textColor="#e2e2e2"
-                android:text="Rahul Saxena"
                 tools:targetApi="jelly_bean" />
             <TextView
                 android:id="@+id/txt_contact"
@@ -52,12 +51,12 @@
                 android:fontFamily="@font/rubik_regular"
                 android:textColor="#8c8d8e"
                 android:letterSpacing="0.02"
-                android:text="9911512412"
                 tools:ignore="UnusedAttribute" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
+                android:visibility="gone"
                 android:id="@+id/tv_gold_user"
                 android:fontFamily="@font/rubik_regular"
                 android:layout_marginTop="10dp"

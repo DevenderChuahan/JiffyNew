@@ -124,15 +124,22 @@
                             android:layout_weight="1"
                             android:gravity="end|center"
                             android:layout_height="match_parent">
-
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/rubik_regular"
-                                android:textColor="#25d0fc"
-                                android:letterSpacing="0.02"
-                                android:text="+ Add Funds" />
+                                android:id="@+id/ll_addFund"
+                                android:layout_height="30dp">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/rubik_regular"
+                                    android:textColor="#25d0fc"
+                                    android:letterSpacing="0.02"
+                                    android:text="@string/add_funds" />
+
+                            </LinearLayout>
+
 
                         </LinearLayout>
 
@@ -170,10 +177,11 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textSize="18sp"
+                                    android:id="@+id/tv_deposit_Amount"
                                     android:layout_marginStart="2dp"
                                     android:fontFamily="@font/futura_medium"
                                     android:textColor="#e2e2e2"
-                                    android:text="@{walletVmodel.deposit_amount}"
+                                    android:text=""
                                     android:layout_marginLeft="2dp" />
                             </LinearLayout>
                             <TextView
@@ -198,6 +206,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
+                                android:id="@+id/tv_withdraw"
                                 android:fontFamily="@font/rubik_regular"
                                 android:textColor="#25d0fc"
                                 android:letterSpacing="0.02"

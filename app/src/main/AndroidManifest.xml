@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="in.jiffycharge.gopower">
 
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
@@ -16,19 +16,31 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:node="merge"
-        tools:targetApi="m">
-        <activity android:name=".view.charge.ChargeActivity"
+        tools:targetApi="q">
+        <activity android:name=".view.rezorpay.RazorpayActivity"
             android:configChanges="orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.feedback.FeedbackActivity"
+            android:configChanges="orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.charge.ChargeActivity"
+            android:configChanges="orientation"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.revert.RevertActivity"
             android:configChanges="orientation"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.unlock.UnLockActivity"
@@ -41,7 +53,7 @@
         <activity
             android:name=".view.deposit.DepositActivity"
             android:configChanges="orientation"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".payment.CashFreeResultActivity"
@@ -78,10 +90,12 @@
         <activity
             android:name=".view.home.HomeActivity"
             android:configChanges="orientation"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.power.SelectPowerActivity"
             android:configChanges="orientation"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -105,6 +119,19 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="@string/freshchat_file_provider_authority"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/freshchat_file_provider_paths"
+                tools:replace="android:resource" />
+        </provider>
+
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -118,11 +145,22 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".view.login.SMSBroadcastReceiver">
+        <receiver
+            android:name=".view.login.SMSBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
-                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
+                <action android:name="android.intent.action.ACTION_BATTERY_LOW" />
+                <action android:name="android.intent.action.ACTION_BATTERY_OKAY" />
+                <action android:name="android.intent.action.ACTION_BATTERY_CHANGED" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </receiver>
+
+        <service
+            android:name=".utils.JobService"
+            android:enabled="true" />
 
         <activity
             android:name=".view.splash.SplashActivity"

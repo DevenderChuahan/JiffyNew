@@ -48,7 +48,7 @@ class CashFreeResultActivity:AppCompatActivity() {
                 if (bundle.getString(key) != null) {
                     val value = bundle.getString(key)
                     resultMap[key] = value
-                    Log.d(TAG, key + " : " + value)
+                    Log.d(TAG, "$key : $value")
                 }
             }
         }
@@ -75,41 +75,41 @@ class CashFreeResultActivity:AppCompatActivity() {
         val gson = Gson()
        val resultVo= gson.fromJson<CashFreeVOModel>(gson.toJson(resultMap),CashFreeVOModel::class.java)
 
-        home_view_model.repo.getVO(resultVo)
-        home_view_model.repo.voResult.observe(this, androidx.lifecycle.Observer {
-            when(it.status)
-            {
-
-                Resourse.Status.SUCCESS->
-                {
-
-                    if (it.data?.success==true)
-                    {
-                        onPayResultListener?.onSuccess(it)
-                        toast("Payment Success")
-                        finish()
-
-
-                    }else
-                    {
-                        showErrorMessage(it.data?.error)
-
-                    }
-
-                }
-
-                 Resourse.Status.ERROR->
-                {
-                    showErrorMessage(it.data?.error_description)
-
-                }
-
-
-            }
-
-
-
-        })
+//        home_view_model.repo.getVO(resultVo)
+//        home_view_model.repo.voResult.observe(this, androidx.lifecycle.Observer {
+//            when(it.status)
+//            {
+//
+//                Resourse.Status.SUCCESS->
+//                {
+//
+//                    if (it.data?.success==true)
+//                    {
+//                        onPayResultListener?.onSuccess(it)
+//                        toast("Payment Success")
+//                        finish()
+//
+//
+//                    }else
+//                    {
+//                        showErrorMessage(it.data?.error)
+//
+//                    }
+//
+//                }
+//
+//                 Resourse.Status.ERROR->
+//                {
+//                    showErrorMessage(it.data?.error_description)
+//
+//                }
+//
+//
+//            }
+//
+//
+//
+//        })
 
 
 

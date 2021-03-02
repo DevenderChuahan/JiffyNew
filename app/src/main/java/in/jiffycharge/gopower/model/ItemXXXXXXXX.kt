@@ -4,8 +4,8 @@ import java.io.Serializable
 
 data class ItemXXXXXXXX(
     val beginLocationDetails: String,
-    val beginLocationLat: Int,
-    val beginLocationLon: Int,
+    val beginLocationLat: Double,
+    val beginLocationLon: Double,
     val beginTime: Long,
     val borrowCabinetId: Int,
     val borrowCabinetStatusCode: String,
@@ -23,8 +23,8 @@ data class ItemXXXXXXXX(
     val currency: String,
     val doingFeedbacks: List<DoingFeedbackX>,
     val endLocaitonDetails: String,
-    val endLocationLat: Int,
-    val endLocationLon: Int,
+    val endLocationLat: Double,
+    val endLocationLon: Double,
     val exchangeRateDesc: String,
     val finishTime: Long,
     val fitCoupon: FitCouponX,
@@ -51,5 +51,5 @@ data class ItemXXXXXXXX(
     val sellerName: String,
     val status: Int,
     val uid: Int,
-    var userCouponId: Int
+    var userCouponId: Long
 ):Serializable

@@ -39,33 +39,75 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp"
                 android:id="@+id/ll_top"
-                android:layout_marginStart="1dp"
+                android:layout_marginTop="15dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="1dp">
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/rl_search"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="11dp"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="46dp"
+                        android:id="@+id/iv_nav_drawer"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:src="@drawable/group_4"
+                        android:layout_centerVertical="true"
+                        android:layout_height="46dp"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:background="@drawable/search_background"
+                        android:id="@+id/iv_search"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="20dp"
+                        android:gravity="center_vertical"
+                        android:layout_toEndOf="@+id/iv_nav_drawer"
+                        android:layout_toStartOf="@+id/iv_jiffy"
+                        android:visibility="visible"
+                        android:layout_height="46dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="Search Jiffy Outlet"
+                            android:textColor="@color/black"
+                            android:textSize="14dp"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="@font/futura_medium"
+                            android:layout_height="wrap_content"/>
+
+                    </RelativeLayout>
+
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:src="@drawable/group_3"
+                        android:id="@+id/iv_jiffy"
+                        android:layout_alignParentEnd="true"
+                        android:layout_height="46dp"
+                        />
+                </RelativeLayout>
+
+
+
                 <ImageView
                     android:clickable="true"
                     android:onClick="@{homeviewmodel::open_drawer}"
                     android:focusable="true"
+                    android:visibility="gone"
                     android:id="@+id/iv_drawer_icon"
                     android:foreground="?attr/selectableItemBackground"
                     android:layout_width="wrap_content"
                     android:src="@drawable/group_4"
                     android:layout_height="wrap_content"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_gravity="center"
-                    android:id="@+id/rl_logo"
-                    android:visibility="gone"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:src="@drawable/group_3"
-                        android:layout_alignParentEnd="true"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true" />
-                </RelativeLayout>
+
+
 
             </LinearLayout>
 

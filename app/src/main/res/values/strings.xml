@@ -44,7 +44,11 @@
     <string name="facebook_app_id">734860730624709</string>
     <string name="fb_login_protocol_scheme">fb734860730624709</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="fresh_chat_app_id" translatable="false">678efe6c-f408-4f38-979f-7417063520f0</string>
+    <string name="fresh_chat_app_key" translatable="false">c0c13e24-5f17-4555-bdf4-e2739e8ecaab</string>
+    <string name="freshchat_file_provider_authority">in.jiffycharge.gopower.provider</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="transaction_history">Transaction History</string>
     <string name="swipe_up_to_see_all_transactions">Swipe up to see all transactions</string>
@@ -55,6 +59,36 @@
     <string name="fee">Fee</string>
     <string name="no_transaction_history">No Transaction History</string>
     <string name="no_data_found">No Data</string>
+    <string name="top_up">TOP UP</string>
+    <string name="feedback">Feedback</string>
+    <string name="upload_photos">Upload photos</string>
+    <string name="you_have_unpaid_order">You have unpaid Order !</string>
+    <string name="please_pay_first">Please pay first</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="you_have_not_paid_the_deposit_yet">You have not paid the deposit yet !</string>
+    <string name="pay_deposit">Pay Refundable Deposit</string>
+    <string name="give_us_feedback">Give us feedback</string>
+    <string name="device_name">Device Name</string>
+    <string name="duration">Duration</string>
+    <string name="rupee">₹</string>
+    <string name="min">min</string>
+    <string name="order_number">Enter Order Number</string>
+    <string name="please_leave_your_comment_here">Please leave your comment here</string>
+    <string name="please_select_issue_type">Please select issue type</string>
+    <string name="android">Android</string>
+    <string name="return_amp_pay"><![CDATA[Return & Pay]]></string>
+    <string name="total_fee">Total Fee</string>
+    <string name="duration_of_usage">Duration of Usage</string>
+    <string name="my_offer">My Offer</string>
+    <string name="no_available_offers">No available offers</string>
+    <string name="order_details">Order details</string>
+    <string name="view">View</string>
+    <string name="my_wallet">My Wallet</string>
+    <string name="pay">Pay</string>
+    <string name="referral_code">Referral Code</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="add_funds">+ Add Funds</string>
+    <string name="razo_key_id">rzp_test_YeQ6LGSXqFCfrm</string>
 
 
 </resources>

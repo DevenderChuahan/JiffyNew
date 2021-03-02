@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:id="@+id/ll_adapter_full_view"
+        android:layout_height="wrap_content">
+        <!--        android:background="?attr/selectableItemBackground"-->
+
+        <androidx.cardview.widget.CardView
+            app:cardCornerRadius="10dp"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="#1a1c26"
+            android:id="@+id/ll_orders_view"
+            android:layout_marginStart="17dp"
+            android:layout_marginEnd="17dp"
+            android:layout_height="80dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/notification_background"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:background="@drawable/custom_ripple"
+                        android:layout_height="match_parent">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:id="@+id/ll_changebackground"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                android:id="@+id/tv_amt"
+                                android:layout_gravity="center_horizontal"
+                                android:text="10.0 INR"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/futura_medium"
+                                android:textColor="@color/colorPrimary"
+                                android:letterSpacing="0.02"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13sp"
+                                android:id="@+id/tv_amt2"
+                                android:layout_gravity="center_horizontal"
+                                android:text="10.0 INR"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/rubik_regular"
+                                android:textColor="@color/white"
+                                android:letterSpacing="0.02"
+                                />
+
+
+
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</layout>
+

@@ -86,6 +86,15 @@ class HomeActivityViewModel(val repo:HomeRepository):ViewModel() {
 
     }
 
+
+ fun go_to_feedback(view:View)
+    {
+        home_interface?.goToFeedback()
+
+    }
+
+
+
  fun open_drawer(view:View)
     {
         home_interface?.open_drawer()

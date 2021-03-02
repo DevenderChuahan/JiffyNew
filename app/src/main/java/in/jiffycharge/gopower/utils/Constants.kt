@@ -1,9 +1,24 @@
 package `in`.jiffycharge.gopower.utils
 
-import `in`.jiffycharge.gopower.network.ApiInterface
+import `in`.jiffycharge.gopower.R
 import `in`.jiffycharge.gopower.getsp
+import `in`.jiffycharge.gopower.network.ApiInterface
 import `in`.jiffycharge.gopower.setsp
+import `in`.jiffycharge.gopower.view.home.HomeActivity
+import android.annotation.SuppressLint
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.ContentResolver
 import android.content.Context
+import android.content.Intent
+import android.graphics.Color
+import android.media.AudioAttributes
+import android.media.RingtoneManager
+import android.net.Uri
+import android.os.Build
+import androidx.core.app.NotificationCompat
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -28,7 +43,9 @@ class Constants {
         private lateinit var apiService: ApiInterface
 
         const val base_url="https://api.jiffycharge.in/api/"
+//        const val base_url="https://apistaging.jiffycharge.in/api/"
         const val token_Url="https://oauth.jiffycharge.in/oauth/token"
+//        const val token_Url="https://oauthstaging.jiffycharge.in/oauth/token"
         const val agreement_url="http://api.jiffycharge.in/share/use_car_rules"
 
 
@@ -131,11 +148,6 @@ class Constants {
             }
         }
 
-
-
-
-
-
         fun initOkHttp(application: Context, client: ((OkHttpClient.Builder) -> Unit)? = null) {
             okHttpClientBuilder = getUnsafeOkHttpClient()
             okHttpClientBuilder.connectTimeout(3, TimeUnit.MINUTES)
@@ -149,9 +161,78 @@ class Constants {
         private fun okhttpClient(context: Context): OkHttpClient {
             return OkHttpClient.Builder()
                 .addInterceptor(AuthInterceptor(context))
+                .retryOnConnectionFailure(true)
 //                .addInterceptor("oauth2-password")
                 .build()
         }
+        @SuppressLint("WrongConstant")
+        fun buildNotification(context: Context)
+        {
+            val intent=Intent(context,HomeActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            val pendingIntent=PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_ONE_SHOT)
+
+
+            val notificationManager=context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notificatonChannelId="notificatonChannelId"
+
+            var  notificationBuilder:NotificationCompat.Builder?=null
+
+//            val soundUri: Uri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE.toString() + "://" + context.packageName + "/" + R.raw.mysound)
+            val alarmSound: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
+
+
+            if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
+            {
+                val notificationChannel:NotificationChannel=NotificationChannel(notificatonChannelId,"Jiffy Notification",NotificationManager.IMPORTANCE_MAX)
+
+                // Configure the notification channel.
+                notificationChannel.description = "Channel description"
+                notificationChannel.enableLights(true)
+                notificationChannel.lightColor = Color.RED
+                notificationChannel.vibrationPattern = longArrayOf(0, 1000, 500, 1000)
+                notificationChannel.enableVibration(true)
+                val audioAttributes: AudioAttributes = AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                    .build()
+                notificationChannel.setSound(alarmSound,audioAttributes)
+                notificationManager.createNotificationChannel(notificationChannel)
+                notificationBuilder=NotificationCompat.Builder(context,notificatonChannelId)
+
+
+            }else
+            {
+                  notificationBuilder=NotificationCompat.Builder(context)
+
+            }
+
+                notificationBuilder.setAutoCancel(true)
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setWhen(System.currentTimeMillis())
+                    .setSmallIcon(R.drawable.home_icon)
+                    .setTicker("Jiffy")
+                    .setContentTitle("Jiffy notification")
+                    .setContentText("Please get Jiffy PowerBank to keep phone always charged.")
+                    .setContentInfo("Info")
+//                    .setSound( alarmSound)
+//                    .setDefaults(Notification.DEFAULT_VIBRATE)
+//                    .setDefaults(Notification.DEFAULT_SOUND)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true)
+
+
+
+
+
+
+
+            notificationManager.notify(1234,notificationBuilder.build())
+
+
+        }
+
+
 
 
     }

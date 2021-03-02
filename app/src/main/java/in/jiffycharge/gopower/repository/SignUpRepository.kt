@@ -15,37 +15,48 @@ class SignUpRepository(private val api:ApiInterface) {
      fun get_otp(country_code:String, mobile:String)
     {
         CoroutineScope(Dispatchers.IO).launch {
-            val response=api.getOtp(country_code,mobile)
-            withContext(Dispatchers.Main)
-            {
-                try {
+            try {
+                val response=api.getOtp(country_code,mobile)
+                withContext(Dispatchers.Main)
+                {
+                    try {
 
-                    if (response.isSuccessful)
-                    {
-                        response_message.postValue(response.code().toString())
-                        otp_data.postValue(response.body())
+                        if (response.isSuccessful && response.body()!!.success)
+                        {
+                            response_message.postValue(response.code().toString())
+                            otp_data.postValue(response.body())
 
-                    }else
+                        }else
+                        {
+                            response_message.postValue(response.message())
+
+                        }
+
+                    }catch (e:HttpException)
                     {
-                        response_message.postValue(response.message())
+                        e.printStackTrace()
+
+                    }catch (e:Throwable)
+                    {
+                        e.printStackTrace()
 
                     }
 
-                }catch (e:HttpException)
-                {
-                    e.printStackTrace()
 
-                }catch (e:Throwable)
-                {
-                    e.printStackTrace()
+
+
 
                 }
+            } catch (e: HttpException) {
+                e.printStackTrace()
 
-
-
-
+            } catch (e: Throwable) {
+                e.printStackTrace()
 
             }
+
+
+
 
 
 

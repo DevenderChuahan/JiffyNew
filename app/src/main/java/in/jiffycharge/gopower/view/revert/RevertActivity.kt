@@ -3,12 +3,13 @@ package `in`.jiffycharge.gopower.view.revert
 import `in`.jiffycharge.gopower.R
 import `in`.jiffycharge.gopower.model.ItemXXXXXXXX
 import `in`.jiffycharge.gopower.model.ItemXXXXXXXXX
-import `in`.jiffycharge.gopower.payment.PayResultActivity
 import `in`.jiffycharge.gopower.utils.Resourse
 import `in`.jiffycharge.gopower.utils.getCountTimeByLong
 import `in`.jiffycharge.gopower.utils.toast
 import `in`.jiffycharge.gopower.view.charge.ChargeActivity
 import `in`.jiffycharge.gopower.view.coupons.CouponsActivity
+import `in`.jiffycharge.gopower.view.deposit.DepositActivity
+import `in`.jiffycharge.gopower.view.home.HomeActivity
 import `in`.jiffycharge.gopower.view.orders.ViewOrderFragment
 import `in`.jiffycharge.gopower.view.wallet.WallerPayBean
 import `in`.jiffycharge.gopower.view.wallet.WallerPayMark
@@ -18,9 +19,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_revert.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -54,6 +57,9 @@ class RevertActivity : AppCompatActivity() {
 
             }
 
+        }
+        revert_back.setOnClickListener {
+          onBackPressed()
         }
 
 //        home_view_model.repo.payDeposit("cashfree", PayResultActivity.RETURN_URL_DEPOSIT)
@@ -98,6 +104,7 @@ class RevertActivity : AppCompatActivity() {
 
 //        getcoupponListandAppSetData()
 
+        getcoupponListandAppSetData()
 
         payBt.setOnClickListener {
             startPay()
@@ -191,20 +198,33 @@ class RevertActivity : AppCompatActivity() {
         }
     }
 
-    private fun paymentUsingPost(orderCode: String, userCouponId: Int, payBean: WallerPayBean) {
+    private fun paymentUsingPost(orderCode: String, userCouponId: Long, payBean: WallerPayBean) {
 
         home_view_model.repo.getPatmentDetails(orderCode, userCouponId, payBean)
         home_view_model.repo.paymetDetails_list_data.observe(this, Observer {
             runOnUiThread {
                 when (it.status) {
                     Resourse.Status.SUCCESS -> {
-                        finishAfterTransition()
+//                        it.data?.item?:toast(it.data?.error_description?:return@runOnUiThread)
+                        if(it.data?.item !=null)
+                        {
+                            finishAfterTransition()
 
+                        }else {
 
+                            toast(it.data?.error_description ?: return@runOnUiThread)
+                        }
                     }
                     Resourse.Status.ERROR -> {
+                        Log.v("DCWalltetPAyError",it.data?.error_description?:"nothing")
+                        Log.v("DCWalltetPAyError",it.data?.error?:"nono")
+
+                        this.toast(it.data?.error_description?:return@runOnUiThread)
 
                     }
+//                        Log.v("DCWalltetPAyError",it.data?.error_description?:"nothing")
+
+//                    }
 
                 }
 
@@ -216,6 +236,12 @@ class RevertActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Animatoo.animateSwipeLeft(context)
+
+    }
+
     private fun payByNoBalance(payBean: WallerPayBean) {
         home_view_model.repo.getSystemSet()
         home_view_model.repo.systemsetResult.observe(this, Observer {
@@ -223,26 +249,26 @@ class RevertActivity : AppCompatActivity() {
 
                 when (it.status) {
                     Resourse.Status.SUCCESS -> {
-                        val isOnlyBalance = it.data!!.item.isOpenBalance
+                        val isOnlyBalance = it.data?.item?.isOpenBalance?:true
                         if (isOnlyBalance) {
-                            home_view_model.repo.fetchUserprofile()
+//                            home_view_model.repo.fetchUserprofile()
                             home_view_model.repo._data.observe(this, Observer {
                                 when (it.status) {
 
                                     Resourse.Status.SUCCESS -> {
-                                        val balance = it.data!!.item.balance
+                                        val balance = it.data?.item?.balance?:0.0
                                         if (needPay > balance) {
-                                            startActivity(Intent(this, ChargeActivity::class.java))
+//                                            startActivity(Intent(this, ChargeActivity::class.java))
 
+                                            val intent = Intent(context, ChargeActivity::class.java)
+                                            intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                            startActivity(intent)
                                         } else {
                                             payBean.mark = WallerPayMark.BALANCE
                                             paymentUsingPost(
                                                 apiOrderBO!!.orderCode,
                                                 apiOrderBO!!.userCouponId,
-                                                payBean
-                                            )
-
-
+                                                payBean)
                                         }
 
 
@@ -257,6 +283,7 @@ class RevertActivity : AppCompatActivity() {
 
                         } else {
                             payBean.mark = WallerPayMark.CASHFREE
+
                             paymentUsingPost(
                                 apiOrderBO!!.orderCode,
                                 apiOrderBO!!.userCouponId,
@@ -283,7 +310,7 @@ class RevertActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun setCouponChangeUi(event: ItemXXXXXXXXX) {
-        apiOrderBO!!.userCouponId = event.id
+        apiOrderBO!!.userCouponId = event.id.toLong()
         val couponAmount = "${event.amount} ${event.currency}"
         coupns_tv.text = "-$couponAmount"
         coupns_tv.setTextColor(ContextCompat.getColor(this, R.color.red))
@@ -295,7 +322,8 @@ class RevertActivity : AppCompatActivity() {
             isOnlyBalancePay = false
         }
 
-        needPayTv.text = "Pay${needPay}${event.currency}"
+//        needPayTv.text = "Pay${needPay}${event.currency}"
+        needPayTv.text = "${needPay}"
         couponTv.text = "Coupons\n${couponAmount}"
 
 
@@ -305,15 +333,13 @@ class RevertActivity : AppCompatActivity() {
     private fun setData(apiOrderBO: ItemXXXXXXXX) {
         val usetime = apiOrderBO.finishTime - apiOrderBO.beginTime
         orderTv.text = apiOrderBO.orderCode
-        totalFeeTv.text =
-            "Total Fee:${apiOrderBO.payPrice}${apiOrderBO.currency}\n${getCountTimeByLong(
-                usetime,
-                true
-            )}"
+        totalFeeTv.text = "${apiOrderBO.payPrice}${apiOrderBO.currency}"
+        tv_duration.text= getCountTimeByLong(usetime, true)
 
         needPay = apiOrderBO.payPrice
-        needPayTv.text = "Pay${apiOrderBO.payPrice}${apiOrderBO.currency}"
-        couponTv.text = "Coupons\n0${apiOrderBO.currency}"
+//        needPayTv.text = "Pay${apiOrderBO.payPrice}${apiOrderBO.currency}"
+        needPayTv.text = "${apiOrderBO.payPrice}"
+        couponTv.text = "Apply Coupon\n0${apiOrderBO.currency}"
 
         isOnlyBalancePay = !(apiOrderBO.payPrice != null && apiOrderBO.payPrice > 0)
 
@@ -322,7 +348,7 @@ class RevertActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        getcoupponListandAppSetData()
+//        getcoupponListandAppSetData()
     }
 
     private fun getcoupponListandAppSetData() {
@@ -338,7 +364,7 @@ class RevertActivity : AppCompatActivity() {
                     }
 
                     Resourse.Status.SUCCESS -> {
-                        val item = it.data!!.items?:return@runOnUiThread
+                        val item = it.data?.items?:return@runOnUiThread
                         if (item.isEmpty()) {
                             coupns_tv.text = "no offer available"
 
@@ -367,7 +393,7 @@ class RevertActivity : AppCompatActivity() {
 
 
         //systemset api
-        home_view_model.repo.getSystemSet()
+//        home_view_model.repo.getSystemSet()
         home_view_model.repo.systemsetResult.observe(this, androidx.lifecycle.Observer {
 
             runOnUiThread {

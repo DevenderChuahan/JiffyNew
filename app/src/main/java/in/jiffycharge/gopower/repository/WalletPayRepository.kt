@@ -17,40 +17,48 @@ class WalletPayRepository(val api:ApiInterface) {
     {
         try {
             CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val response=api.findDoingInfoUsingGET()
 
-//                doingInfoResult.postValue(Resourse.loading())
+                    withContext(Dispatchers.Main)
+                    {
+                        try {
 
-                val response=api.findDoingInfoUsingGET()
-
-                withContext(Dispatchers.Main)
-                {
-                    try {
-
-                        if (response.isSuccessful)
-                        {
+                            if (response.isSuccessful && response.body()!!.success)
+                            {
 //                            doingInfoResult.postValue(Resourse.success(response.body()) as Resourse<DoingInfoModel>?)
 
-                        }else
+                            }else
 
-                        {
+                            {
 //                            doingInfoResult.postValue(Resourse.error(response.errorBody().toString()))
 
 //                        response_message.postValue(response.code().toString())
 
 
 
+                            }
+
+                        }catch (e: HttpException)
+                        {
+                            e.printStackTrace()
+
+                        }catch (e:Throwable)
+                        {
+                            e.printStackTrace()
+
                         }
-
-                    }catch (e: HttpException)
-                    {
-                        e.printStackTrace()
-
-                    }catch (e:Throwable)
-                    {
-                        e.printStackTrace()
-
                     }
+                } catch (e: HttpException) {
+                    e.printStackTrace()
+
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+
                 }
+
+
+
 
 
 

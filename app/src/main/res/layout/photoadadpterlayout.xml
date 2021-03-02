@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+
+        android:id="@+id/ll_photoview"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/photoIv"
+            android:layout_margin="5dp"
+            android:layout_width="100dp"
+            android:src="@drawable/group_2"
+            android:layout_height="100dp"/>
+
+
+    </LinearLayout>
+
+</layout>
+

@@ -10,6 +10,7 @@ interface Home_Interface {
     fun go_to_wallet()
     fun go_to_coupons()
     fun go_to_support()
+    fun goToFeedback()
 
 
 }

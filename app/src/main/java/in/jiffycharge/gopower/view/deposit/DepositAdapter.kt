@@ -14,6 +14,13 @@ import java.util.*
 class DepositAdapter(val context: Context?, val list: List<ContentXX>) : RecyclerView.Adapter<DepositAdapter.Myviewholder>(){
 
 
+     val depositTypeMap = mapOf(
+        "1" to  "Payment Successfull",
+        "2" to  "Refunding",
+        "3" to  "Refund Successfull",
+        "4" to  "Coupons"
+    )
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -33,7 +40,7 @@ class DepositAdapter(val context: Context?, val list: List<ContentXX>) : Recycle
 
 
     override fun onBindViewHolder(holder:Myviewholder, position: Int) {
-        holder.bindItems(list.get(position))
+        holder.bindItems(list.get(position),depositTypeMap)
 
     }
 
@@ -44,7 +51,10 @@ class DepositAdapter(val context: Context?, val list: List<ContentXX>) : Recycle
 
     class Myviewholder(val binding: DepositSwipeLayoutBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bindItems(content: ContentXX)
+        fun bindItems(
+            content: ContentXX,
+            depositTypeMap: Map<String, String>
+        )
         {
             try {
 
@@ -58,16 +68,31 @@ class DepositAdapter(val context: Context?, val list: List<ContentXX>) : Recycle
 //                val time =sdftime.format(netDate)
 
                 val pattern: String = "MM/dd/yy, HH:mm"
-                val format = SimpleDateFormat(pattern, Locale.getDefault())
-                val time=format.format( content.createTime).toString().trim()
+                val format = SimpleDateFormat(pattern)
+
+                val netDate = Date((content.createTime).toLong())
+                val time =format.format(netDate)
 
 
-
-//
-                binding.tvType.text=content.type
+                binding.tvType.text=depositTypeMap[content.type]
                 binding.tvTime.text=time
-                binding.tvAmount.text= content.amount.toString().trim()
-                binding.executePendingBindings()
+
+                when(content.type)
+                {
+
+                    "1","4"->
+                    {
+                        binding.tvAmount.text= "-"+content.amount.toString().trim()
+
+                    }
+                    else-> {
+                        binding.tvAmount.text= "+"+content.amount.toString().trim()
+
+
+                }
+                }
+
+                               binding.executePendingBindings()
 //
 //                binding.llOrdersView.setOnClickListener {
 //                    if (it.context is HomeActivity)

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/lib/com.dd.processbutton"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#101010"
+    tools:context=".view.feedback.FeedbackActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="#34353b"
+        android:gravity="start|center"
+        android:layout_height="68dp">
+        <LinearLayout
+            android:layout_width="48dp"
+            android:gravity="center"
+            android:layout_marginStart="17dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:id="@+id/feedback_back"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:src="@drawable/path_3"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/futura_medium"
+            android:textColor="#e2e2e2"
+            android:text="@string/feedback"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginEnd="17dp"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:weightSum="1"
+                android:background="@drawable/notification_background"
+                android:layout_height="99dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight=".2"
+                    android:gravity="center"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true"
+                            >
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:src="@drawable/ios_bitmap"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/rubik_regular"
+                            android:textColor="#8c8d8e"
+                            android:letterSpacing="0.02"
+                            android:text="@string/android"
+                            />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight=".6"
+                    android:gravity="center"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/powerBankCodeEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:hint="@string/order_number"
+                        android:saveEnabled="false"
+                        android:gravity="top|start"
+                        android:importantForAutofill="no"
+                        android:imeOptions="actionDone"
+                        android:textColor="#e2e2e2"
+                        android:padding="10dp"
+                        android:inputType="textVisiblePassword"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textColorHint="#e2e2e2"
+                        android:textCursorDrawable="@drawable/cursor_color"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight=".2"
+                    android:gravity="center"
+                    android:id="@+id/scanCodeIv"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/scanning"
+                        android:layout_height="30dp" />
+
+                </LinearLayout>
+
+
+
+
+
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/futura_medium"
+                android:textColor="#e2e2e2"
+                android:text="@string/please_select_issue_type"
+                />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:id="@+id/rv_feedback"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_height="match_parent"/>
+
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:indeterminate="true"
+                    android:id="@+id/pb_feedback"
+                    android:visibility="visible"
+                    android:layout_gravity="center"
+                    android:indeterminateDrawable="@drawable/custom_progressbar"
+                    android:layout_height="80dp"/>
+
+
+            </FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/login_border"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/feedbackDesEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp"
+                    android:background="@color/transparent"
+                    android:hint="@string/please_leave_your_comment_here"
+                    android:saveEnabled="false"
+                    android:gravity="top|left"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:paddingEnd="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingStart="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="20dp"
+                    android:textColor="#e2e2e2"
+                    android:textColorHint="#e2e2e2"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:id="@+id/tv_photoCount"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/futura_medium"
+                android:textColor="#e2e2e2"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:padding="8dp"
+                app:spanCount="4"
+                android:id="@+id/rv_feedbackphoto"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:background="#25d0fc"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="21dp"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="10dp">
+
+        <Button
+            android:id="@+id/submitBt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#25d0fc"
+            android:fontFamily="@font/rubik_regular"
+            android:foreground="?attr/selectableItemBackground"
+            android:letterSpacing="0.02"
+            android:text="@string/submit"
+            android:textColor="#34353b"
+            tools:targetApi="lollipop" />
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+</LinearLayout>

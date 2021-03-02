@@ -16,284 +16,320 @@
         android:background="#34353b"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
-
+            android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="40dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="@{homeviewmodel::go_to_Home}"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
 
-                android:foreground="?attr/selectableItemBackground"
-                android:layout_height="40dp"
-                tools:ignore="UnusedAttribute">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/home"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="30dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="40dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{homeviewmodel::go_to_Home}"
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginStart="6dp"
-                    android:fontFamily="@font/futura_medium"
-                    android:textColor="#e2e2e2"
-                    android:text="@string/home"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_height="40dp"
+                    tools:ignore="UnusedAttribute">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/home"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginStart="6dp"
+                        android:fontFamily="@font/futura_medium"
+                        android:textColor="#e2e2e2"
+                        android:text="@string/home"
+                        tools:ignore="UnusedAttribute"
+                        />
 
 
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{homeviewmodel::open_profile}"
+
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_height="40dp"
+                    tools:ignore="UnusedAttribute">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/profile"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginStart="6dp"
+                        android:layout_gravity="center"
+
+                        android:textColor="#e2e2e2"
+                        android:fontFamily="@font/futura_medium"
+                        android:text="@string/profile"
+                        tools:ignore="UnusedAttribute" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{homeviewmodel::go_to_subscription}"
+
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_height="40dp"
+                    tools:ignore="UnusedAttribute">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/subscription"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginStart="6dp"
+                        android:layout_gravity="center"
+
+                        android:textColor="#e2e2e2"
+                        android:fontFamily="@font/futura_medium"
+                        android:text="@string/subscription"
+                        tools:ignore="UnusedAttribute" />
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{homeviewmodel::go_to_my_orders}"
+
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_height="40dp"
+                    tools:ignore="UnusedAttribute">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/my_order"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginStart="6dp"
+                        android:layout_gravity="center"
+
+                        android:textColor="#e2e2e2"
+                        android:fontFamily="@font/futura_medium"
+                        android:text="@string/my_order"
+                        tools:ignore="UnusedAttribute" />
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{homeviewmodel::go_to_wallet}"
+
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_height="40dp"
+                    tools:ignore="UnusedAttribute">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/wallet"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginStart="6dp"
+
+                        android:textColor="#e2e2e2"
+                        android:fontFamily="@font/futura_medium"
+                        android:text="@string/wallet"
+                        tools:ignore="UnusedAttribute" />
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{homeviewmodel::go_to_coupons}"
+
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_height="40dp"
+                    tools:ignore="UnusedAttribute">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/coupons"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginStart="6dp"
+                        android:textColor="#e2e2e2"
+                        android:fontFamily="@font/futura_medium"
+                        android:text="@string/coupons"
+                        tools:ignore="UnusedAttribute" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{homeviewmodel::go_to_feedback}"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_height="40dp"
+                    tools:ignore="UnusedAttribute">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/feedback"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginStart="6dp"
+                        android:textColor="#e2e2e2"
+                        android:fontFamily="@font/futura_medium"
+                        android:text="@string/feedback"
+                        tools:ignore="UnusedAttribute" />
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{homeviewmodel::go_to_support}"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_height="40dp"
+                    tools:ignore="UnusedAttribute">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/support"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginStart="6dp"
+                        android:textColor="#e2e2e2"
+                        android:fontFamily="@font/futura_medium"
+                        android:text="@string/support"
+                        tools:ignore="UnusedAttribute" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="80dp"
+                    android:onClick="@{homeviewmodel::log_out}"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_height="40dp"
+                    tools:ignore="UnusedAttribute">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_gravity="center"
+                        android:textColor="#e2e2e2"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginStart="30dp"
+                        android:fontFamily="@font/futura_medium"
+                        android:text="@string/log_out"
+                        tools:ignore="UnusedAttribute" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="30dp"
+                        android:textColor="#8c8d8e"
+                        android:fontFamily="@font/rubik_regular"
+                        android:letterSpacing="0.02"
+                        android:text="Version 1.2.1"
+                        tools:ignore="HardcodedText,UnusedAttribute"
+                        android:layout_marginLeft="30dp" />
+
+                </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="@{homeviewmodel::open_profile}"
 
-                android:foreground="?attr/selectableItemBackground"
-                android:layout_height="40dp"
-                tools:ignore="UnusedAttribute">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/profile"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="30dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginStart="6dp"
-                    android:layout_gravity="center"
-
-                    android:textColor="#e2e2e2"
-                    android:fontFamily="@font/futura_medium"
-                    android:text="@string/profile"
-                    tools:ignore="UnusedAttribute" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="@{homeviewmodel::go_to_subscription}"
-
-                android:foreground="?attr/selectableItemBackground"
-                android:layout_height="40dp"
-                tools:ignore="UnusedAttribute">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/subscription"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="30dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginStart="6dp"
-                    android:layout_gravity="center"
-
-                    android:textColor="#e2e2e2"
-                    android:fontFamily="@font/futura_medium"
-                    android:text="@string/subscription"
-                    tools:ignore="UnusedAttribute" />
-
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="@{homeviewmodel::go_to_my_orders}"
-
-                android:foreground="?attr/selectableItemBackground"
-                android:layout_height="40dp"
-                tools:ignore="UnusedAttribute">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/my_order"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="30dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginStart="6dp"
-                    android:layout_gravity="center"
-
-                    android:textColor="#e2e2e2"
-                    android:fontFamily="@font/futura_medium"
-                    android:text="@string/my_order"
-                    tools:ignore="UnusedAttribute" />
-
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="@{homeviewmodel::go_to_wallet}"
-
-                android:foreground="?attr/selectableItemBackground"
-                android:layout_height="40dp"
-                tools:ignore="UnusedAttribute">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/wallet"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="30dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginStart="6dp"
-
-                    android:textColor="#e2e2e2"
-                    android:fontFamily="@font/futura_medium"
-                    android:text="@string/wallet"
-                    tools:ignore="UnusedAttribute" />
-
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="@{homeviewmodel::go_to_coupons}"
-
-                android:foreground="?attr/selectableItemBackground"
-                android:layout_height="40dp"
-                tools:ignore="UnusedAttribute">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/coupons"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="30dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginStart="6dp"
-                    android:textColor="#e2e2e2"
-                    android:fontFamily="@font/futura_medium"
-                    android:text="@string/coupons"
-                    tools:ignore="UnusedAttribute" />
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="@{homeviewmodel::go_to_support}"
-
-                android:foreground="?attr/selectableItemBackground"
-                android:layout_height="40dp"
-                tools:ignore="UnusedAttribute">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/support"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="30dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginStart="6dp"
-                    android:textColor="#e2e2e2"
-                    android:fontFamily="@font/futura_medium"
-                    android:text="@string/support"
-                    tools:ignore="UnusedAttribute" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginTop="80dp"
-                android:onClick="@{homeviewmodel::log_out}"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:layout_height="40dp"
-                tools:ignore="UnusedAttribute">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:layout_gravity="center"
-                    android:textColor="#e2e2e2"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginStart="30dp"
-                    android:fontFamily="@font/futura_medium"
-                    android:text="@string/log_out"
-                    tools:ignore="UnusedAttribute" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="30dp"
-                    android:textColor="#8c8d8e"
-                    android:fontFamily="@font/rubik_regular"
-                    android:letterSpacing="0.02"
-                    android:text="Version 1.2.1"
-                    tools:ignore="HardcodedText,UnusedAttribute"
-                    android:layout_marginLeft="30dp" />
-
-            </LinearLayout>
-        </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 </layout>

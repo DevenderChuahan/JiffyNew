@@ -10,10 +10,9 @@ import kotlinx.android.synthetic.main.fragment_order.*
 
 import `in`.jiffycharge.gopower.R
 import `in`.jiffycharge.gopower.databinding.FragmentOrderBinding
-import `in`.jiffycharge.gopower.utils.toast
+import `in`.jiffycharge.gopower.utils.Resourse
 import `in`.jiffycharge.gopower.viewmodel.Orders_view_model
 import android.app.Activity
-import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -56,29 +55,37 @@ class OrderFragment : Fragment() {
 
 //        rv_my_orders.adapter= OrdersAdapter(context,map_list)
 
-
-
-                    order_view_Model.order_repo.response_message.observe(viewLifecycleOwner,
-                        Observer {
-
-                            if(it.equals("200"))
-                            {
-
                                 order_view_Model.data.observe(viewLifecycleOwner, Observer {orderlistmodel->
                                     rv_my_orders.apply {
                                         requireActivity().runOnUiThread {
-
-
-                                            if (orderlistmodel.content.isEmpty())
+                                            when(orderlistmodel.status)
                                             {
+                                                Resourse.Status.SUCCESS->
+                                                {
+
+                                                    if (orderlistmodel.data!!.content.isEmpty())
+                                                    {
+                                                        ll_no_orders.visibility=View.VISIBLE
+                                                        Order_loader.visibility=View.GONE
+                                                    }else
+                                                    {
+                                                        Order_loader.visibility=View.GONE
+                                                        adapter=OrdersAdapter(context,orderlistmodel)
+
+                                                    }
+                                                }
+
+                                                Resourse.Status.ERROR->
+                                            {
+
                                                 ll_no_orders.visibility=View.VISIBLE
                                                 Order_loader.visibility=View.GONE
-                                            }else
-                                            {
-                                                Order_loader.visibility=View.GONE
-                                                adapter=OrdersAdapter(context,orderlistmodel)
+                                            }
 
                                             }
+
+
+
 
                                         }
 
@@ -90,16 +97,6 @@ class OrderFragment : Fragment() {
 
 
 
-
-                            }else
-
-                            {
-//                                context.toast(it.toString())
-                                Log.v("DCreponse",it.toString())
-                                ll_no_orders.visibility=View.VISIBLE
-                                Order_loader.visibility=View.GONE
-                            }
-                        })
 
 
         myorder_back.setOnClickListener {

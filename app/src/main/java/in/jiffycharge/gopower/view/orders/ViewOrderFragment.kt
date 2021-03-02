@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import `in`.jiffycharge.gopower.R
 import `in`.jiffycharge.gopower.databinding.FragmentOrderBinding
 import `in`.jiffycharge.gopower.databinding.FragmentViewOrderBinding
+import `in`.jiffycharge.gopower.utils.Resourse
 import `in`.jiffycharge.gopower.utils.toast
 import `in`.jiffycharge.gopower.viewmodel.Orders_view_model
 import android.Manifest
@@ -101,11 +102,16 @@ class ViewOrderFragment : Fragment(), OnMapReadyCallback {
             tv_code.text=order_code.toString().trim()
             Log.v("order_code",order_code)
             order_view_Model.call_order_details(order_code!!)
-            order_view_Model.order_repo.response_message.observe(this,
-                Observer {
-                    if(it.equals("200"))
+
+            order_view_Model.order_repo._detailes_list.observe(this, Observer {orderlistmodel->
+                context.runOnUiThread {
+
+                    when(orderlistmodel.status)
                     {
-                        order_view_Model.order_repo._detailes_list.observe(this, Observer {orderlistmodel->
+                        Resourse.Status.SUCCESS->
+                        {
+
+
                             map?.clear()
 
                             // Changing map type
@@ -113,9 +119,9 @@ class ViewOrderFragment : Fragment(), OnMapReadyCallback {
 
 
                             val markerOptions= MarkerOptions()
-                            val begin_lat_lng=LatLng(orderlistmodel.item.beginLocationLat, orderlistmodel.item.beginLocationLon)
-                            Log.v("DClat", orderlistmodel.item.beginLocationLat.toString())
-                            Log.v("DClon", orderlistmodel.item.beginLocationLat.toString())
+                            val begin_lat_lng=LatLng(orderlistmodel.data!!.item.beginLocationLat, orderlistmodel.data.item.beginLocationLon)
+                            Log.v("DClat", orderlistmodel.data.item.beginLocationLat.toString())
+                            Log.v("DClon", orderlistmodel.data.item.beginLocationLat.toString())
                             markerOptions.position(begin_lat_lng)
 
                             val bitmapDrawable= ContextCompat.getDrawable(context, R.drawable.group_11_copy_3)as BitmapDrawable
@@ -124,9 +130,9 @@ class ViewOrderFragment : Fragment(), OnMapReadyCallback {
                             markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap))
                             map?.addMarker(markerOptions)
 
-                            if(!orderlistmodel.item.endLocationLat.equals(0.0) && !orderlistmodel.item.endLocationLon.equals(0.0))
+                            if(!orderlistmodel.data.item.endLocationLat.equals(0.0) && !orderlistmodel.data.item.endLocationLon.equals(0.0))
                             {
-                                val end_lat_lng=LatLng(orderlistmodel.item.endLocationLat, orderlistmodel.item.endLocationLon)
+                                val end_lat_lng=LatLng(orderlistmodel.data.item.endLocationLat, orderlistmodel.data.item.endLocationLon)
 
                                 val markerOptions2= MarkerOptions()
                                 markerOptions2.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
@@ -134,7 +140,7 @@ class ViewOrderFragment : Fragment(), OnMapReadyCallback {
 
                                 map?.addMarker(markerOptions2)
 
-                                val _lat_lon2=LatLng((orderlistmodel.item.beginLocationLat+orderlistmodel.item.endLocationLat)/2,(orderlistmodel.item.beginLocationLon + orderlistmodel.item.endLocationLon)/2)
+                                val _lat_lon2=LatLng((orderlistmodel.data.item.beginLocationLat+orderlistmodel.data.item.endLocationLat)/2,(orderlistmodel.data.item.beginLocationLon + orderlistmodel.data.item.endLocationLon)/2)
 
                                 map?.moveCamera(CameraUpdateFactory.newLatLng(_lat_lon2))
                                 map?.animateCamera(CameraUpdateFactory.newLatLngZoom(_lat_lon2,13.5f))
@@ -144,15 +150,23 @@ class ViewOrderFragment : Fragment(), OnMapReadyCallback {
                                 map?.animateCamera(CameraUpdateFactory.newLatLngZoom(begin_lat_lng,13.5f))
                             }
 
-                        })
-                    }else
-                    {
-                        context.toast(it.toString())
+                        }
 
+                        Resourse.Status.ERROR->
+                        {
+
+                        }
+
+
+                        else ->
+                        {}
                     }
 
+                }
 
-                })
+
+                        })
+
 
         }
 

@@ -18,5 +18,5 @@ data class ItemXXX(
     val sellerLogo: String,
     val sellerName: String,
     val serviceTime: String,
-    val uid: Int
+    val uid: Long
 )

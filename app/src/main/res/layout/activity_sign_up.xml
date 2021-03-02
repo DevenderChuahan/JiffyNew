@@ -2,7 +2,9 @@
 
 <layout
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/lib/com.dd.processbutton"
+    >
     <data>
         <variable
             name="SignUpVmodel"
@@ -157,7 +159,7 @@
                                 android:saveEnabled="false"
                                 android:importantForAutofill="no"
                                 android:imeOptions="actionDone"
-                                android:inputType="textFilter"
+                                android:inputType="textVisiblePassword"
                                 android:paddingEnd="10dp"
                                 android:paddingRight="10dp"
                                 android:paddingStart="20dp"
@@ -177,18 +179,22 @@
                         android:background="#25d0fc"
                         app:cardCornerRadius="2dp"
                         app:cardElevation="10dp">
-
-                        <Button
+                        <com.dd.processbutton.iml.ActionProcessButton
                             android:id="@+id/btn_sign_up"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="#25d0fc"
-                            android:fontFamily="@font/rubik_regular"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:letterSpacing="0.02"
                             android:text="@string/sign_up"
                             android:textColor="#34353b"
-                            tools:targetApi="lollipop" />
+                            android:textSize="15sp"
+                            android:fontFamily="@font/rubik_regular"
+                            custom:pb_colorComplete="#25d0fc"
+                            custom:pb_colorNormal="#25d0fc"
+                            app:pb_cornerRadius="2dp"
+                            custom:pb_colorPressed="#25d0fc"
+                            custom:pb_colorProgress="#25d0fc"
+                            custom:pb_colorError="@color/red_error" />
+
+
 
                     </androidx.cardview.widget.CardView>
                     <androidx.cardview.widget.CardView
@@ -199,17 +205,22 @@
                         app:cardCornerRadius="2dp"
                         app:cardElevation="10dp">
 
-                        <Button
+                        <com.dd.processbutton.iml.ActionProcessButton
                             android:id="@+id/btn_already_user"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="#25d0fc"
-                            android:fontFamily="@font/rubik_regular"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:letterSpacing="0.02"
                             android:text="@string/already_user"
                             android:textColor="#34353b"
-                            tools:targetApi="lollipop" />
+                            android:textSize="15sp"
+                            android:fontFamily="@font/rubik_regular"
+                            custom:pb_colorComplete="#25d0fc"
+                            custom:pb_colorNormal="#25d0fc"
+                            app:pb_cornerRadius="2dp"
+                            custom:pb_colorPressed="#25d0fc"
+                            custom:pb_colorProgress="#25d0fc"
+                            custom:pb_colorError="@color/red_error" />
+
+
 
                     </androidx.cardview.widget.CardView>
                     <LinearLayout

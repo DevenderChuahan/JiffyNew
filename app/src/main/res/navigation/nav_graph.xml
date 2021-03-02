@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mapFragment">
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="in.jiffycharge.gopower.view.map.MapFragment"
+        android:label="MapFragment" />
+    <fragment
+        android:id="@+id/orderFragment"
+        android:name="in.jiffycharge.gopower.view.orders.OrderFragment"
+        android:label="OrderFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="in.jiffycharge.gopower.view.profile.ProfileFragment"
+        android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/walletFragment"
+        android:name="in.jiffycharge.gopower.view.wallet.WalletFragment"
+        android:label="WalletFragment" />
+</navigation>

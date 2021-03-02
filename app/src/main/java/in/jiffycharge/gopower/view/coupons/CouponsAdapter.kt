@@ -6,8 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import `in`.jiffycharge.gopower.R
+import `in`.jiffycharge.gopower.model.ContentXXX
+import android.util.Log
+import android.widget.TextView
+import java.text.SimpleDateFormat
+import kotlin.collections.ArrayList
 
-class CouponsAdapter(val context: Context, val list:HashMap<String,String>) :RecyclerView.Adapter<CouponsAdapter.Myviewholder>(){
+class CouponsAdapter(val context: Context, val list: ArrayList<ContentXXX>) :RecyclerView.Adapter<CouponsAdapter.Myviewholder>(){
 
     var count=0
 
@@ -32,8 +37,13 @@ return Myviewholder(LayoutInflater.from(context).inflate(R.layout.coupons_adapte
 
     override fun onBindViewHolder(holder: CouponsAdapter.Myviewholder, position: Int) {
 
+        holder.tv_off.text to list.get(position).amount.toString()+"%"+" off"
 
+        val sdf = SimpleDateFormat("dd MMMM, yyyy hh:mm a")
+        val date =sdf.format(list.get(position).expireDate )
+        Log.e("CouponDate",date)
 
+        holder.tv_date.text to "Expires on: "+date
 
 
     }
@@ -41,14 +51,14 @@ return Myviewholder(LayoutInflater.from(context).inflate(R.layout.coupons_adapte
 
 
     override fun getItemCount(): Int {
-        return 10
+        return list.size
 
     }
 
 
     class Myviewholder(itemview:View):RecyclerView.ViewHolder(itemview) {
-//         val tv_top=itemview.findViewById<TextView>(R.id.tv_top)
-//         val ll_orders_view=itemview.findViewById<LinearLayout>(R.id.ll_orders_view)
+         val tv_off=itemview.findViewById<TextView>(R.id.tv_off)
+         val tv_date=itemview.findViewById<TextView>(R.id.tv_date)
 
 
     }

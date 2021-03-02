@@ -25,18 +25,17 @@
             android:layout_height="68dp">
             <LinearLayout
                 android:layout_width="48dp"
-                android:gravity="start|center"
+                android:gravity="center"
                 android:layout_marginStart="17dp"
                 android:layout_height="48dp"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:id="@+id/vieworder_back"
-                android:focusable="true"
-                android:layout_marginLeft="17dp">
+                android:focusable="true">
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:src="@drawable/back"
-                    android:layout_height="match_parent"/>
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/path_3"
+                    android:layout_height="wrap_content"/>
 
 
             </LinearLayout>

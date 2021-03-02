@@ -5,7 +5,7 @@ data class ItemXX(
     val authApplyStatus: Int,
     val authStatus: String,
     val authStep: Int,
-    val balance: Int,
+    val balance: Double,
     val birthdate: String,
     val cabinetAlias: String,
     val credentialsImages: List<String>,

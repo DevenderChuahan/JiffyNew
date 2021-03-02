@@ -121,6 +121,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
+                        android:id="@+id/btn_apply"
                         android:background="@drawable/sky_blue_border"
                         android:layout_marginLeft="10dp">
                         <RelativeLayout
@@ -205,6 +206,15 @@
 
 
         </LinearLayout>
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:indeterminate="true"
+            android:id="@+id/coupon_loader"
+            android:visibility="visible"
+            android:layout_gravity="center"
+            android:indeterminateDrawable="@drawable/custom_progressbar"
+            android:layout_height="100dp"/>
+
 
 
 

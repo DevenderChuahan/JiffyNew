@@ -26,6 +26,7 @@ android {
         compile.exclude group: 'com.google.zxing'
     }
 
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -67,8 +68,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.core:core-ktx:1.3.1'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.navigation:navigation-fragment:2.3.0'
     implementation 'androidx.navigation:navigation-ui:2.3.0'
@@ -76,8 +77,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
     testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
@@ -89,10 +90,8 @@ dependencies {
     implementation 'org.koin:koin-androidx-viewmodel:2.0.1'
     implementation 'org.koin:koin-androidx-scope:2.0.1'
     //Meterial Design Dependency
-    implementation 'com.google.android.material:material:1.2.0'
-    // retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+    implementation 'com.google.android.material:material:1.2.1'
+
 // ViewModel
     def lifecycle_version = "2.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
@@ -120,12 +119,12 @@ dependencies {
 
 //    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-3'
 //for QR code
-    implementation 'com.google.android.gms:play-services-vision:20.1.1'
+    implementation 'com.google.android.gms:play-services-vision:20.1.2'
     //cardview
     implementation "androidx.cardview:cardview:1.0.0"
     //sms Retrieve
     implementation "com.google.android.gms:play-services-auth-api-phone:17.4.0"
-    implementation 'com.google.android.gms:play-services-base:17.3.0'
+    implementation 'com.google.android.gms:play-services-base:17.4.0'
     //picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
     //firebase auth
@@ -164,6 +163,10 @@ dependencies {
     api("org.apache.oltu.oauth2:org.apache.oltu.oauth2.client:$oltu_version") {
         exclude group: 'org.apache.oltu.oauth2', module: 'org.apache.oltu.oauth2.common'
     }
+
+    api "io.swagger:swagger-annotations:1.5.17"
+
+
     // Scaller Converter Factory
     implementation 'com.squareup.retrofit2:converter-scalars:2.6.0'
 
@@ -172,11 +175,39 @@ dependencies {
 
 //    implementation(name: 'cashfreesdk-1.0-release', ext: 'aar')
     //glide
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
     //event bus
     implementation 'org.greenrobot:eventbus:3.2.0'
     //Precess button on login
     implementation 'com.github.dmytrodanylyk.android-process-button:library:1.0.0'
+    //Take photo  library
+//    implementation 'com.github.crazycodeboy:TakePhoto:v4.1.0'
+    //photo picker
+    implementation 'com.github.dhaval2404:imagepicker:1.7.5'
+    //Fresh Chat
+    implementation 'com.github.freshdesk:freshchat-android:3.6.5'
+    //spotlight
+    implementation 'com.github.takusemba:spotlight:2.0.2'
+//    animation
+    implementation 'com.github.mohammadatif:Animatoo:master'
+    //showcase
+    implementation 'com.github.spiddekauga:MaterialShowcaseView:2.0.0'
+    //Take photo  library
+    implementation 'com.zhihu.android:matisse:0.5.3-beta3'
+    implementation 'com.karumi:dexter:6.1.0'
+
+    //Rezorpay payment Integration
+    implementation 'com.razorpay:checkout:1.5.16'
+
+    //for hashing signature used in razorpay payment section
+    implementation 'commons-codec:commons-codec:1.10'
+
+
+
+
+
+
+
 
 
 

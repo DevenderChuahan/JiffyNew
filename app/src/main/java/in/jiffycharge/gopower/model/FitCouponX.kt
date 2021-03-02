@@ -1,5 +1,7 @@
 package `in`.jiffycharge.gopower.model
 
+import java.io.Serializable
+
 data class FitCouponX(
     val amount: Int,
     val cityId: String,
@@ -8,4 +10,4 @@ data class FitCouponX(
     val expireDate: String,
     val id: Int,
     val source: String
-)
+):Serializable

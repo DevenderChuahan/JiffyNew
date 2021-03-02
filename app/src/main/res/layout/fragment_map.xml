@@ -28,141 +28,15 @@
                     android:id="@+id/frg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:id="@+id/ll_pop"
-                    android:visibility="gone"
-                    android:clickable="true"
-                    android:layout_marginTop="60dp"
-                    android:background="@drawable/bottomcurve"
-                    android:layout_height="wrap_content"
-                    android:focusable="true">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="123456798123465789"
-                            android:id="@+id/orderNumberTv"
-
-                            android:drawablePadding="16dp"
-                            android:textSize="14sp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/rubik_regular"
-                            android:padding="16dp"
-                            app:drawableStartCompat="@drawable/order_number_icon" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/colorPrimary"
-                            android:id="@+id/feedbackTv"
-                            android:text="Feedback"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/rubik_regular"
-                            android:padding="16dp"
-                            />
 
 
-
-
-                    </LinearLayout>
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="0.6dp"
-                        android:background="@color/black"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="First 5 min free,INR20/1h"
-                            android:drawablePadding="16dp"
-                            android:id="@+id/orderRateTv"
-                            android:textSize="14sp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/rubik_regular"
-                            android:padding="16dp"
-                            app:drawableStartCompat="@drawable/order_number_icon" />
-
-
-
-
-                    </LinearLayout>
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="0.6dp"
-                        android:background="@color/black"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:textSize="14sp"
-                            android:id="@+id/orderUsingTimeTv"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:text="3\nDuration(min)"
-                            android:padding="16dp"
-                            android:layout_height="wrap_content"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:textSize="14sp"
-                            android:id="@+id/orderUsingFeeTv"
-                            android:layout_weight="1"
-                            android:padding="16dp"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:text="0.0\nFee"
-                            android:layout_height="wrap_content"/>
-
-
-
-
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:id="@+id/rl_search"
-                    android:layout_marginTop="10dp"
-                    android:layout_height="50dp">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:src="@drawable/search_24"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginEnd="10dp"
-                        android:id="@+id/iv_search"
-                        android:layout_toStartOf="@id/iv_logo"
-                        android:layout_height="wrap_content"
-                        />
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:src="@drawable/group_3"
-                        android:id="@+id/iv_logo"
-                        android:layout_marginTop="2dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_height="wrap_content"
-                        />
-                </RelativeLayout>
 
 
 
                 <ImageView
                     android:clickable="true"
                     android:focusable="true"
+                    android:id="@+id/iv_map_focus"
                     android:onClick="@{mapviewmodel::locate_to_location}"
                     android:foreground="?attr/selectableItemBackground"
                     android:layout_width="wrap_content"
@@ -170,7 +44,6 @@
                     android:layout_marginEnd="20dp"
                     android:layout_gravity="center|end"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
                     tools:ignore="UnusedAttribute" />
                 <ImageView
                     android:layout_width="wrap_content"
@@ -178,6 +51,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:id="@+id/btn_scan"
+                    android:visibility="visible"
                     android:onClick="@{mapviewmodel::click_on_Scan}"
                     android:foreground="?attr/selectableItemBackground"
                     android:layout_marginBottom="70dp"
@@ -202,6 +76,7 @@
         </LinearLayout>
 
         <include layout="@layout/home_bottom_sheet"/>
+        <include layout="@layout/power_countdown_bottomsheet_layout"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

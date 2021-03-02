@@ -3,12 +3,17 @@ package `in`.jiffycharge.gopower.view.map
 
 import `in`.jiffycharge.gopower.R
 import `in`.jiffycharge.gopower.databinding.FragmentMapBinding
+import `in`.jiffycharge.gopower.getsp
 import `in`.jiffycharge.gopower.model.ItemXXXXXXXX
+import `in`.jiffycharge.gopower.setsp
 import `in`.jiffycharge.gopower.utils.Resourse
 import `in`.jiffycharge.gopower.utils.toast
 import `in`.jiffycharge.gopower.view.deposit.DepositActivity
+import `in`.jiffycharge.gopower.view.feedback.FeedbackActivity
+import `in`.jiffycharge.gopower.view.home.HomeActivity
 import `in`.jiffycharge.gopower.view.power.SelectPowerActivity
 import `in`.jiffycharge.gopower.view.revert.RevertActivity
+import `in`.jiffycharge.gopower.view.rezorpay.RazorpayActivity
 import `in`.jiffycharge.gopower.viewmodel.HomeActivityViewModel
 import `in`.jiffycharge.gopower.viewmodel.MapFragmentViewModel
 import android.Manifest
@@ -21,6 +26,7 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ColorDrawable
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -28,16 +34,19 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.Window
 import android.widget.Button
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.beust.klaxon.*
+import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
@@ -56,12 +65,18 @@ import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import com.spiddekauga.android.ui.showcase.MaterialShowcase
+import com.spiddekauga.android.ui.showcase.MaterialShowcaseSequence
+import com.spiddekauga.android.ui.showcase.MaterialShowcaseView
+import com.spiddekauga.android.ui.showcase.ShowcaseConfig
 import com.yzq.zxinglibrary.android.CaptureActivity
 import com.yzq.zxinglibrary.bean.ZxingConfig
 import com.yzq.zxinglibrary.common.Constant
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_map.*
 import kotlinx.android.synthetic.main.home_bottom_sheet.*
+import kotlinx.android.synthetic.main.power_countdown_bottomsheet_layout.*
+import kotlinx.android.synthetic.main.power_countdown_bottomsheet_layout.view.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -79,6 +94,8 @@ import kotlin.collections.ArrayList
 class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
     private val MapViewModel by viewModel<MapFragmentViewModel>()
     val home_view_model by viewModel<HomeActivityViewModel>()
+
+
 
 
     private val usingOrderTimer by lazy { Timer() }
@@ -107,12 +124,13 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
     val points = ArrayList<LatLng>()
     val lines = ArrayList<Polyline>()
     val TAG = MapFragment::class.java.simpleName
+     var deposit=0
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
         private const val REQUEST_CHECK_SETTINGS = 2
         private const val PLACE_PICKER_REQUEST = 3
-        private const val SCAN_REQUEST_CODE = 8
+        const val SCAN_REQUEST_CODE = 8
         private const val CAMERA_REQUEST_CODE = 8001
         private const val REQUEST_SELECT_MAP_ADDRESS = 101
 
@@ -171,47 +189,6 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
         val mMapview = childFragmentManager.findFragmentById(R.id.frg) as SupportMapFragment
         mMapview.getMapAsync(this)
 
-
-//        //search location in google map
-//         autocompleteFragment = childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
-//        autocompleteFragment!!.setPlaceFields(arrayListOf(Place.Field.ID,Place.Field.LAT_LNG))
-//        autocompleteFragment!!.view?.setBackgroundColor(Color.WHITE)
-//
-//
-//        autocompleteFragment?.setOnPlaceSelectedListener(object : PlaceSelectionListener
-//        {
-//            override fun onPlaceSelected(place: Place) {
-//                val place_name=place.name
-//                val place_id=place.id
-//                map.clear()
-//                map.addMarker(MarkerOptions().position(place.latLng!!).title(place_name))
-//                //find nearBy Places
-//                val url:String=getUrl(place.latLng!!.latitude, place.latLng!!.longitude,nearbyPlace)
-//
-//
-//                val getNearbyPlacesData= GetNearbyPlacesData()
-//                getNearbyPlacesData.execute(map,url,context,markoptions)
-//
-//
-//                map.moveCamera(CameraUpdateFactory.newLatLng(place.latLng))
-//                map.animateCamera(CameraUpdateFactory.newLatLngZoom(place.latLng,12.5f))
-//
-//
-//            }
-//
-//            override fun onError(status: Status) {
-//
-//            }
-//
-//
-//        })
-
-//        context.setsp("token","aa343cd7-147f-4a24-bb08-8830aa136703")
-
-
-//        startShareText("Hello Dc !! WE are from Jiffy !!")
-
-
         // Inflate the layout for this fragment
         return bind.root
 
@@ -221,10 +198,26 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
         super.onActivityCreated(savedInstanceState)
 
         getOrderInfo()
-//        showPopUpWindow()
+//        home_view_model.repo.fetchUserprofile()
+
+        home_view_model.repo._data.observe(viewLifecycleOwner, Observer {
+            (requireActivity()).runOnUiThread {
+                when (it.status) {
+                    Resourse.Status.SUCCESS -> {
+                         deposit = it.data!!.item.deposit
 
 
-        iv_search.setOnClickListener {
+
+                    }
+                    Resourse.Status.ERROR -> {
+//                        context.toast(it.exception?:return@runOnUiThread)
+                    }
+                }
+            }
+
+        })
+
+        requireActivity().iv_search.setOnClickListener {
             if (!Places.isInitialized()) {
                 Places.initialize(context, getString(R.string.google_maps_key))
                 val placesClient = Places.createClient(context)
@@ -247,6 +240,227 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
 
         }
 
+        //observer
+
+        MapViewModel.mapRepository.location_data.observe(viewLifecycleOwner, Observer { shop_location_list ->
+                context.runOnUiThread {
+                    when (shop_location_list.status) {
+
+                        Resourse.Status.SUCCESS -> {
+
+                            val latLngs = mutableListOf<Pair<Double, Double>>()
+                            val items = shop_location_list.data?.items
+                            Log.v("DCItems","$items")
+                            if (!items!!.isNullOrEmpty()) {
+
+                                items.forEach {
+                                    latLngs.add(Pair(it.locationLat, it.locationLon))
+                                }
+
+                                for (i in items.indices) {
+                                    val bitmapDrawable = ContextCompat.getDrawable(
+                                        context,
+                                        R.drawable.group_11_copy_3
+                                    ) as BitmapDrawable
+                                    val bitmap = bitmapDrawable.bitmap
+                                    Bitmap.createScaledBitmap(bitmap, 84, 84, false)
+                                    val markerOptions = MarkerOptions()
+                                    markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap))
+
+
+                                    val lat_lng = LatLng(
+                                        items.get(i).locationLat,
+                                        items.get(i).locationLon
+                                    )
+                                    markerOptions.position(lat_lng)
+                                    map.addMarker(markerOptions)
+
+                                }
+
+
+                            }
+
+                        }
+                        Resourse.Status.ERROR -> {
+
+                            context.toast(shop_location_list.data?.error_description.toString())
+
+
+                        }
+
+
+                    }
+
+                }
+
+
+            })
+
+
+
+        //getOrderInfo observer
+        home_view_model.repo.doingInfoResult.observe(viewLifecycleOwner, Observer {
+            context.runOnUiThread {
+                when (it.status) {
+                    Resourse.Status.LOADING -> {
+
+
+                    }
+                    Resourse.Status.SUCCESS -> {
+                        val apiOrderBO = it.data?.item?:return@runOnUiThread
+
+//10 creating, 20 creating failed, 30 in progress, 40 unpaid, 41 pending refund, normal process, 42 pending refund, unlocking failed, 50 paid
+                        when (apiOrderBO?.status) {
+                            10 -> {//creating
+
+                            }
+                            20 -> {//creation failed
+                            }
+                            30 -> {//processing
+                                context.setsp("popflag",true)
+
+
+                                orderUsing(apiOrderBO)
+                            }
+                            40 -> {//unpaid
+                                context.setsp("popflag",true)
+
+                                showNotPayDialog(apiOrderBO)
+                            }
+                            41, 42 -> {//Pending refund, normal process
+//                                showRefundDialog(apiOrderBO)
+                            }
+//                    42 -> {//pending refund unlocking failed
+//
+//                    }
+                            50 -> {//paid
+
+                            }
+                            null -> {
+                                noUsingOrder()
+                                context.setsp("popflag",false)
+
+
+                            }
+                            else -> {
+                                context.setsp("popflag",true)
+
+                                orderUsing(apiOrderBO)
+                            }
+                        }
+
+
+                    }
+
+                    Resourse.Status.ERROR -> {
+                        requireActivity().btn_scan.visibility=View.VISIBLE
+                        context.setsp("popflag",false)
+
+
+
+                    }
+
+
+                }
+
+
+            }
+
+
+        })
+
+        // getPayNot observer
+
+        home_view_model.repo.payNotResult.observe(viewLifecycleOwner, Observer {
+            context.runOnUiThread {
+                when (it.status) {
+//                        Resourse.Status.LOADING -> {
+//
+//
+//                        }
+                    Resourse.Status.SUCCESS -> {
+                        val apiOrderBO = it.data?.item?:return@runOnUiThread
+//                            val apiOrderBO = it.data!!.item
+                        requireActivity().btn_scan.visibility = View.GONE
+                        context.setsp("popflag",true)
+
+                        showNotPayDialog(apiOrderBO)
+
+
+
+
+
+
+                    }
+                    Resourse.Status.ERROR -> {
+//                            context.toast(it.data!!.error_description)
+                        requireActivity().btn_scan.visibility = View.VISIBLE
+                        context.setsp("popflag",false)
+
+
+
+                    }
+
+                    else ->
+                    {
+
+                    }
+                }
+
+
+            }
+
+        })
+
+
+
+
+
+        //Showcase
+        val config=ShowcaseConfig(context)
+        config.delay=0
+
+        val sequence =MaterialShowcaseSequence(context,"776")
+        sequence.setConfig(config)
+
+        sequence.addSequenceItem(  MaterialShowcaseView.Builder(context)
+            .setTarget(context.iv_nav_drawer)
+            .setTitleText("Drawer Items")
+            .setContentText("Click here to get more drawer items ")
+            .setDismissText("Got It")
+            .setSingleUse("drawer")
+            .build())
+
+        config.delay=500
+
+
+        sequence.addSequenceItem(  MaterialShowcaseView.Builder(context)
+            .setTarget(iv_map_focus)
+            .setTitleText("Current Location")
+            .setContentText("Click to move to your current location")
+            .setDismissText("Got It")
+            .setSingleUse("focus")
+            .build())
+
+        config.delay=500
+
+        sequence.addSequenceItem(  MaterialShowcaseView.Builder(context)
+            .setTarget(btn_scan)
+            .setTitleText("Scan Now")
+            .setContentText("Click to scan Jiffy QR code ")
+            .setDismissText("Got It")
+            .setSingleUse("scan")
+            .build()
+        )
+
+
+        sequence.show()
+
+
+
+
+
+
 
     }
 
@@ -254,112 +468,34 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
         try {
             //getOrderInfo
             home_view_model.repo.doingfInfo()
-            home_view_model.repo.doingInfoResult.observe(viewLifecycleOwner, Observer {
-                context.runOnUiThread {
-                    when (it.status) {
-                        Resourse.Status.LOADING -> {
-
-
-                        }
-                        Resourse.Status.SUCCESS -> {
-                            val apiOrderBO = it.data?.item?:return@runOnUiThread
-
-//10 creating, 20 creating failed, 30 in progress, 40 unpaid, 41 pending refund, normal process, 42 pending refund, unlocking failed, 50 paid
-                            when (apiOrderBO?.status) {
-                                10 -> {//creating
-
-                                }
-                                20 -> {//creation failed
-                                }
-                                30 -> {//processing
-                                    orderUsing(apiOrderBO)
-                                }
-                                40 -> {//unpaid
-                                    showNotPayDialog(apiOrderBO)
-                                }
-                                41, 42 -> {//Pending refund, normal process
-//                                showRefundDialog(apiOrderBO)
-                                }
-//                    42 -> {//pending refund unlocking failed
-//
-//                    }
-                                50 -> {//paid
-
-                                }
-                                null -> {
-                                    noUsingOrder()
-                                }
-                                else -> {
-                                    orderUsing(apiOrderBO)
-                                }
-                            }
-
-
-                        }
-
-                        Resourse.Status.ERROR -> {
-                            requireActivity().btn_scan.visibility=View.VISIBLE
-
-
-                        }
-
-
-                    }
-
-
-                }
-
-
-            })
 
             // getPayNot
             home_view_model.repo.getNotPay()
 
-            home_view_model.repo.payNotResult.observe(viewLifecycleOwner, Observer {
-                context.runOnUiThread {
-                    when (it.status) {
-                        Resourse.Status.LOADING -> {
-
-
-                        }
-                        Resourse.Status.SUCCESS -> {
-                            val apiOrderBO = it.data?.item?:return@runOnUiThread
-//                            val apiOrderBO = it.data!!.item
-                            showNotPayDialog(apiOrderBO)
-
-
-
-
-
-
-                        }
-                        Resourse.Status.ERROR -> {
-//                            context.toast(it.data!!.error_description)
-
-
-                        }
-
-                    }
-
-
-                }
-
-            })
 
         } catch (e: Exception) {
 
         }
 
     }
+    private var isShowUnPayOrderDialog = false
 
     private fun showNotPayDialog(apiOrderBO: ItemXXXXXXXX) {
+//        if (isShowUnPayOrderDialog) {
+//            return
+//        }
+//        isShowUnPayOrderDialog = true
         val dialog = Dialog(context, R.style.WideDialog)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.unpainorder)
-//                            dialog.setCancelable(true)
-        dialog.setCanceledOnTouchOutside(false)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+
+//        dialog.setCancelable(false)
+//        dialog.setCanceledOnTouchOutside(false)
         val btn = dialog.findViewById(R.id.btn_pay) as Button
         btn.setOnClickListener {
+//            isShowUnPayOrderDialog = false
+
             dialog.dismiss()
             dialog.cancel()
 
@@ -369,6 +505,8 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
 
             intent.flags= Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
+            Animatoo.animateCard(context)
+
 
             dialog.dismiss()
         }
@@ -384,7 +522,8 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
             usingOrderTimer.cancel()
         }
 
-        ll_pop?.visibility = View.GONE
+        power_bottom_sheet.visibility = View.GONE
+
         requireActivity().btn_scan.visibility = View.VISIBLE
     }
 
@@ -393,15 +532,17 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
      * order is in progress
      */
     private fun orderUsing(apiOrderBO: ItemXXXXXXXX) {
-        btn_scan.visibility = View.GONE
+//        btn_scan.visibility = View.GONE
 //        home_view_model.startUsingOrderTask()
+        requireActivity().btn_scan.visibility=View.GONE
+
 
         if (usingOrderTask == null) {
             usingOrderTask = object : TimerTask() {
                 @SuppressLint("FragmentLiveDataObserve")
                 override fun run() {
                     context.runOnUiThread {
-                        home_view_model.repo.doingfInfo()
+//                        home_view_model.repo.doingfInfo()
                         home_view_model.repo.doingInfoResult.observe(this@MapFragment, Observer {
                             context.runOnUiThread {
                                 when (it.status) {
@@ -414,11 +555,22 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
                                                 "<font color=\"#FF4200\">"
                                             ).replace("</s>", "</font>")
                                         )
+//                                        orderUsingTimeTv.text = it.data.item.rideTime.toString()
+//                                            .plus("\n${"Duration(min)"}")
                                         orderUsingTimeTv.text = it.data.item.rideTime.toString()
-                                            .plus("\n${"Duration(min)"}")
+
                                         orderUsingFeeTv.text = it.data.item.price.toString()
-                                            .plus("\n${"Fee"}(${it.data.item.currency})")
-                                        showPopUpWindow()
+
+//                                        orderUsingFeeTv.text = it.data.item.price.toString()
+//                                            .plus("\n${"Fee"}(${it.data.item.currency})")
+
+//                                        (context as HomeActivity).showPopUpWindow()
+
+                                        showPopUpWindow(apiOrderBO)
+
+
+
+
 
                                     }
                                     Resourse.Status.ERROR -> {
@@ -454,9 +606,15 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
 //        }
     }
 
-    private fun showPopUpWindow() {
+    private fun showPopUpWindow(apiOrderBO: ItemXXXXXXXX) {
         val drawerLayout = requireActivity().drawer_layout
         requireActivity().btn_scan.visibility = View.GONE
+        home_bottom_sheet2.visibility = View.GONE
+
+        power_bottom_sheet.visibility = View.VISIBLE
+        Animatoo.animateZoom(context)
+
+
 
 
         drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
@@ -465,13 +623,12 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
                         requireActivity().nav_view
                     )
                 ) {
-                    ll_pop.visibility = View.VISIBLE
-                    requireActivity().btn_scan.visibility = View.GONE
-
+                    power_bottom_sheet?.visibility = View.VISIBLE?:return
+                    requireActivity().btn_scan?.visibility = View.GONE?:return
 
                 } else {
-                    ll_pop.visibility = View.GONE
-                    requireActivity().btn_scan.visibility = View.GONE
+                    power_bottom_sheet.visibility = View.GONE?:return
+                    requireActivity().btn_scan?.visibility = View.GONE?:return
 
 
                 }
@@ -481,8 +638,9 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
 
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
 
-                ll_pop.visibility = View.GONE
-                requireActivity().btn_scan.visibility = View.GONE
+                power_bottom_sheet.visibility = View.GONE?:return
+
+                requireActivity().btn_scan?.visibility = View.GONE?:return
 
             }
 
@@ -496,91 +654,20 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
 
         })
 
-
-        if (requireActivity().drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            ll_pop.visibility = View.GONE
-        } else {
-            ll_pop.visibility = View.VISIBLE
+       power_bottom_sheet. feedbackTv.setOnClickListener {
+            val intent=Intent(requireContext(),FeedbackActivity::class.java)
+            intent.putExtra("ordercode",apiOrderBO.orderCode)
+            intent.putExtra("borrowsyscode",apiOrderBO.borrowSysCode)
+            startActivity(intent)
 
         }
-
-//        // Initialize a new layout inflater instance
-//        val inflater:LayoutInflater = requireActivity().layoutInflater
-//
-//        // Inflate a custom view using layout inflater
-//        val view = inflater.inflate(R.layout.orderpopupwindow,null)
-//
-//        // Initialize a new instance of popup window
-//        val popupWindow = PopupWindow(
-//            view, // Custom view to show in popup window
-//            LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
-//            LinearLayout.LayoutParams.WRAP_CONTENT // Window height
-//        )
-//
-//        // Set an elevation for the popup window
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            popupWindow.elevation = 10.0F
-//        }
-//
-//
-//        // If API level 23 or higher then execute the code
-//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-//            // Create a new slide animation for popup window enter transition
-//            val slideIn = Slide()
-//            slideIn.slideEdge = Gravity.TOP
-//            popupWindow.enterTransition = slideIn
-//
-//            // Slide animation for popup window exit transition
-//            val slideOut = Slide()
-//            slideOut.slideEdge = Gravity.RIGHT
-//            popupWindow.exitTransition = slideOut
-//
-//        }
-//
-//
-//        // Get the widgets reference from custom view
-////        val tv = view.findViewById<TextView>(R.id.text_view)
-////        val buttonPopup = view.findViewById<Button>(R.id.button_popup)
-////
-////        // Set click listener for popup window's text view
-////        tv.setOnClickListener{
-////            // Change the text color of popup window's text view
-////            tv.setTextColor(Color.RED)
-////        }
-////
-////        // Set a click listener for popup's button widget
-////        buttonPopup.setOnClickListener{
-////            // Dismiss the popup window
-////            popupWindow.dismiss()
-////        }
-//
-//        // Set a dismiss listener for popup window
-//        popupWindow.setOnDismissListener {
-////            Toast.makeText(applicationContext,"Popup closed",Toast.LENGTH_SHORT).show()
-//        }
-//
-//
-//        // Finally, show the popup window on app
-//
-// val root:FrameLayout=requireActivity().findViewById(R.id.frg) as FrameLayout
-//        TransitionManager.beginDelayedTransition(root)
-//        context.runOnUiThread {
-//            popupWindow.showAtLocation(
-//                (root), // Location to display popup window
-//                Gravity.TOP, // Exact position of layout to display popup
-//                0, // X offset
-//                0 // Y offset
-//            )
-//        }
-//
-
 
     }
 
 
     override fun onDestroy() {
         super.onDestroy()
-        EventBus.getDefault().register(this)
+        EventBus.getDefault().unregister(this)
     }
 
 
@@ -595,49 +682,7 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
     }
 
 
-    private fun startShareText(text: String) {
-        val toNumber = 917018451823
 
-        val sendIntent = Intent()
-        sendIntent.action = Intent.ACTION_VIEW
-        sendIntent.data = (Uri.parse("http://api.whatsapp.com/send?phone=$toNumber&text=$text"))
-        context.startActivity(sendIntent)
-
-
-    }
-
-
-    private fun fetchLocation() {
-        if (ActivityCompat.checkSelfPermission(
-                context,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                context,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestpermission()
-
-            return
-        } else {
-            val tsk = fusedLocationClient.lastLocation
-
-            tsk.addOnSuccessListener {
-                if (it != null) {
-                    CurrentLocation = it
-
-                    val mMapview =
-                        childFragmentManager.findFragmentById(R.id.frg) as SupportMapFragment
-                    mMapview.getMapAsync(this)
-
-
-                }
-
-
-            }
-        }
-
-    }
 
 
     override fun onMapReady(p0: GoogleMap) {
@@ -751,7 +796,6 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
                     )
                     marker.showInfoWindow()
                     tv_location_name.text = tittle
-                    home_bottom_sheet2.visibility = View.VISIBLE
 
 //               mPolyline=map.addPolyline(mpolylineOption)
 //                mPolyline.remove()
@@ -988,116 +1032,45 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
 
     override fun locate_to_location() {
 
-//        moveMap()
-        home_bottom_sheet2.visibility = View.GONE
-
         setLocationonMap()
+//        val intent=Intent(context,RazorpayActivity::class.java)
+//        startActivity(intent)
 
 
     }
 
     override fun click_on_Scan() {
-//        val scanner= IntentIntegrator(context)
-//        scanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
-//        scanner.setBeepEnabled(true)
-//        scanner.setCameraId(0)
-////        scanner.addExtra("Dc","SCAN SC")
-//
-//        scanner.initiateScan()
-        /////////
-//
-//        val intentScan = Intent(context, CaptureActivity::class.java)
-//
-//        intentScan.action = "com.google.zxing.client.android.SCAN"
-//        intentScan.addCategory(Intent.CATEGORY_DEFAULT)
-//
-//        intentScan.putExtra(
-//            "SCAN_CAMERA_ID",
-//            0
-//        ) // Which camera would you prefer? 1 is for front-camera and 0 is for rear-camera.
-//
-//        intentScan.putExtra(
-//            "SHOW_FLIP_CAMERA_BUTTON",
-//            true
-//        ) // true or false, whether you want to show flip camera button or not.
-//
-//        intentScan.putExtra(
-//            "SHOW_TORCH_BUTTON",
-//            true
-//        ) // true or false, whether you want to show torch button or not.
-//
-//        intentScan.putExtra(
-//            "TORCH_ON",
-//            false
-//        ) // true or false, whether you want flash torch ON by default.
-//
-//        intentScan.putExtra(
-//            "BEEP_ON_SCAN",
-//            true
-//        ) //true or false, whether you want a beep sound on successful scan.
-//
-//        intentScan.putExtra("PROMPT_MESSAGE",
-//            "Scan Jiffy Code "
-//        ) // a text you want to show to user on scan screen.
-//
-//
-//        startActivityForResult(intentScan, 1)
-
-        //////////////////
-
-//        startActivity(Intent(context,ScanActivity::class.java))
-
-
         if (camera_permission()) {
-            home_view_model.repo.fetchUserprofile()
-            home_view_model.repo._data.observe(viewLifecycleOwner, Observer {
-                (requireActivity()).runOnUiThread {
-                    when (it.status) {
-                        Resourse.Status.SUCCESS -> {
-                            val deposit = it.data!!.item.deposit
-                            if (deposit <= 0) {
-                                val dialog = Dialog(context, R.style.WideDialog)
-                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                dialog.setContentView(R.layout.map_custom_dialog)
+
+            if (deposit!=null) {
+                if (deposit <= 0) {
+                    val dialog = Dialog(context, R.style.WideDialog)
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                    dialog.setContentView(R.layout.map_custom_dialog)
+                    dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
 //                            dialog.setCancelable(true)
-                                val btn = dialog.findViewById(R.id.btn_deposit) as Button
-                                btn.setOnClickListener {
-                                    dialog.dismiss()
-                                    dialog.cancel()
+                    val btn = dialog.findViewById(R.id.btn_deposit) as Button
+                    btn.setOnClickListener {
+                        dialog.dismiss()
+                        dialog.cancel()
 
-                                    val intent = Intent(context, DepositActivity::class.java)
-                                    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                    startActivity(intent)
-                                    dialog.dismiss()
-                                }
-                                dialog.show()
-
-
-                            } else {
-                                val intent = Intent(context, CaptureActivity::class.java)
-                                intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                val config = ZxingConfig()
-                                config.reactColor = R.color.colorAccent
-                                config.isShowAlbum = false
-                                config.isShowFlashLight = false
-                                config.scanLineColor = R.color.colorAccent
-                                intent.putExtra(Constant.INTENT_ZXING_CONFIG, config)
-                                startActivityForResult(intent, SCAN_REQUEST_CODE)
-                            }
-
-                        }
-                        Resourse.Status.ERROR -> {
-
-                            context.toast(it.data?.error_description.toString())
-                        }
-
-
+                        val intent = Intent(context, DepositActivity::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                        dialog.dismiss()
                     }
+                    dialog.show()
+
+
+                } else {
+
+                    (activity as HomeActivity).openScan()
 
 
                 }
+            }
 
-            })
 
 
         } else {
@@ -1109,8 +1082,23 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
     }
 
     override fun onResume() {
-        super.onResume()
+        val popflag= context.getsp("popflag",false)
+
+        if(popflag as Boolean)
+        {
+            requireActivity().btn_scan.visibility = View.GONE
+
+        }else{
+            requireActivity().btn_scan.visibility = View.VISIBLE
+
+        }
         getOrderInfo()
+        //        context.toast("Resume Calling")
+
+
+
+
+        super.onResume()
 
 
     }
@@ -1217,6 +1205,7 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
                     longitude = it.longitude
                     mOrigin = LatLng(lat!!, longitude!!)
 
+                    showNearestPowerBankStation(lat!!, longitude!!)
 
 
                     moveMap()
@@ -1276,70 +1265,7 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
 //        getNearbyPlacesData.execute(map,url,context,markoptions)
 
 
-        try {
-            MapViewModel.mapRepository.find_near_location_shop_list(
-                CurrentLocation.latitude,
-                CurrentLocation.longitude
-            )
 
-            MapViewModel.mapRepository.location_data.observe(
-                viewLifecycleOwner,
-                Observer { shop_location_list ->
-                    context.runOnUiThread {
-                        when (shop_location_list.status) {
-
-                            Resourse.Status.SUCCESS -> {
-
-                                val latLngs = mutableListOf<Pair<Double, Double>>()
-                                val items = shop_location_list.data?.items
-                                if (!items!!.isNotEmpty()) {
-
-                                    items.forEach {
-                                        latLngs.add(Pair(it.locationLat, it.locationLon))
-                                    }
-
-                                    for (i in items.indices) {
-                                        val bitmapDrawable = ContextCompat.getDrawable(
-                                            context,
-                                            R.drawable.group_11_copy_3
-                                        ) as BitmapDrawable
-                                        val bitmap = bitmapDrawable.bitmap
-                                        Bitmap.createScaledBitmap(bitmap, 84, 84, false)
-                                        val markerOptions = MarkerOptions()
-                                        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap))
-
-
-                                        val lat_lng = LatLng(
-                                            items.get(i).locationLat,
-                                            items.get(i).locationLon
-                                        )
-                                        markerOptions.position(lat_lng)
-                                        map.addMarker(markerOptions)
-
-                                    }
-
-
-                                }
-
-                            }
-                            Resourse.Status.ERROR -> {
-
-                                context.toast(shop_location_list.data?.error_description.toString())
-
-
-                            }
-
-
-                        }
-
-                    }
-
-
-                })
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
 
 
         //move camera
@@ -1362,6 +1288,16 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
 //        map.animateCamera(camupdate)
 
 
+    }
+
+    private fun showNearestPowerBankStation(latitude: Double, longitude: Double) {
+        try {
+            MapViewModel.mapRepository.find_near_location_shop_list(latitude, longitude)
+
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun getAddress(latLng: LatLng): String {
@@ -1441,32 +1377,37 @@ class MapFragment() : Fragment(), OnMapReadyCallback, MapInterface {
     @SuppressLint("LongLogTag")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        // Scan QR code / bar code
-        if (requestCode == SCAN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            if (data != null) {
-                val content = data.getStringExtra(Constant.CODED_CONTENT)
-//                context.toast(content.toString())
-//                SelectPowerActivity.start(this, content)
-
-                val intent = Intent(context, SelectPowerActivity::class.java)
-                intent.putExtra("qrcode", content)
-                startActivity(intent)
-            }
-        }
+//        // Scan QR code / bar code
+//        if (requestCode == SCAN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+//            if (data != null) {
+//                val content = data.getStringExtra(Constant.CODED_CONTENT)
+//                val intent = Intent(context, SelectPowerActivity::class.java)
+//                intent.putExtra("qrcode", content)
+////                intent.putExtra("qrcode", "0000800")
+//                startActivity(intent)
+//            }
+//        }
 
 
         if (requestCode == REQUEST_SELECT_MAP_ADDRESS && resultCode == Activity.RESULT_OK) {
             when (resultCode) {
                 Activity.RESULT_OK -> {
+                    map.clear()
                     val place = Autocomplete.getPlaceFromIntent(data!!)
                     val name = place.name
                     val address = place.address
                     val latitude = place.latLng?.latitude ?: return
                     val longitude = place.latLng?.longitude ?: return
+                    Log.v("DCLL","$latitude $longitude")
 
                     map.addMarker(MarkerOptions().position(place.latLng!!).title(name))
                     map.moveCamera(CameraUpdateFactory.newLatLng(place.latLng))
                     map.animateCamera(CameraUpdateFactory.newLatLngZoom(place.latLng, 12.5f))
+
+//                    CurrentLocation.latitude=latitude
+//                    CurrentLocation.longitude=latitude
+                    showNearestPowerBankStation(latitude,longitude)
+
                 }
                 AutocompleteActivity.RESULT_ERROR -> {
                     val status: Status = Autocomplete.getStatusFromIntent(data!!)

@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/lib/com.dd.processbutton"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
@@ -234,20 +235,36 @@
                 app:cardElevation="10dp"
                 android:background="#25d0fc"
                 android:layout_marginTop="30dp">
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:text="@string/submit"
+                <com.dd.processbutton.iml.ActionProcessButton
                     android:id="@+id/btn_submit"
-                    android:textColor="#34353b"
-                    android:background="#25d0fc"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:letterSpacing="0.02"
-                    android:fontFamily="@font/rubik_regular"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:targetApi="lollipop" />
+                    android:text="@string/submit"
+                    android:textColor="#34353b"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/rubik_regular"
+                    custom:pb_colorComplete="#25d0fc"
+                    custom:pb_colorNormal="#25d0fc"
+                    app:pb_cornerRadius="2dp"
+                    custom:pb_colorPressed="#25d0fc"
+                    custom:pb_colorProgress="#25d0fc"
+                    custom:pb_colorError="@color/red_error" />
+
+
 
             </androidx.cardview.widget.CardView>
+<!--            <Button-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:text="@string/submit"-->
+<!--                android:id="@+id/btn_submit"-->
+<!--                android:textColor="#34353b"-->
+<!--                android:background="#25d0fc"-->
+<!--                android:foreground="?attr/selectableItemBackground"-->
+<!--                android:letterSpacing="0.02"-->
+<!--                android:fontFamily="@font/rubik_regular"-->
+<!--                android:layout_height="match_parent"-->
+<!--                tools:targetApi="lollipop" />-->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_marginTop="50dp"

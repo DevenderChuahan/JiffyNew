@@ -22,41 +22,51 @@ class MapRepository(val api: ApiInterface) {
     public fun find_near_location_shop_list(lat: Double?, lng: Double?) {
 
         CoroutineScope(Dispatchers.IO).launch {
-            val response=api.getNearShopLocation(BigDecimal(lat!!), BigDecimal(lng!!), BigDecimal(5000))
 
-            withContext(Dispatchers.Main)
-            {
+            try {
+                val response=api.getNearShopLocation(BigDecimal(lng!!), BigDecimal(lat!!), 5000)
+                withContext(Dispatchers.Main)
+                {
 
-                try {
+                    try {
 
-                    if (response.isSuccessful)
-                    {
+                        if (response.isSuccessful && response.body()!!.success)
+                        {
 
 //                        response_message.postValue(response.code().toString())
 //                        location_data.postValue(response.body())
-                        location_data.postValue(Resourse.success(response.body()) as Resourse<Find_Near_Shop_Location_Model>?)
+                            location_data.postValue(Resourse.success(response.body()) as Resourse<Find_Near_Shop_Location_Model>?)
 
 
 
-                    }else
-                    {
+                        }else
+                        {
 //                        response_message.postValue(response.code().toString())
 
-                        location_data.postValue(Resourse.error(response.errorBody().toString()))
+                            location_data.postValue(Resourse.error(response.body()!!.error_description))
 
+                        }
+
+
+                    }catch (e: HttpException)
+                    {
+                        e.printStackTrace()
+                    }catch (e:Throwable)
+                    {
+                        e.printStackTrace()
                     }
 
 
-                }catch (e: HttpException)
-                {
-                    e.printStackTrace()
-                }catch (e:Throwable)
-                {
-                    e.printStackTrace()
                 }
+            } catch (e: HttpException) {
+                e.printStackTrace()
 
+            } catch (e: Throwable) {
+                e.printStackTrace()
 
             }
+
+
 
 
         }

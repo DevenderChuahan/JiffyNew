@@ -9,7 +9,7 @@
     android:background="@drawable/rounded_dialog"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     app:behavior_hideable="false"
-    app:behavior_peekHeight="266dp">
+    app:behavior_peekHeight="166dp">
     <ImageView
         android:layout_width="80dp"
         android:background="#4d545a"
@@ -91,7 +91,7 @@
             android:visibility="gone"
             android:layout_gravity="center"
             android:indeterminateDrawable="@drawable/custom_progressbar"
-            android:layout_height="200dp"/>
+            android:layout_height="100dp"/>
 
 
 

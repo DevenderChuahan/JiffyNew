@@ -1,33 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/white_border"
     android:layout_height="wrap_content">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/white_border"
-        android:layout_height="200dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_marginTop="15dp"
+        android:layout_height="209dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
             android:gravity="center"
-            android:id="@+id/tv_yet"
-            android:layout_gravity="center"
-            android:fontFamily="@font/futura_medium"
-            android:textColor="#e2e2e2"
-            android:text="You have a unpaid Order !\nPlease pay first"
-            />
-        <Button
-            android:layout_width="wrap_content"
-            android:text="Pay"
-            android:id="@+id/btn_pay"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"/>
+            android:layout_marginTop="40dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:id="@+id/tv_yet"
+                android:layout_gravity="center"
+                android:fontFamily="@font/futura_medium"
+                android:textColor="#e2e2e2"
+                android:text="@string/you_have_unpaid_order"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:fontFamily="@font/rubik_regular"
+                android:textColor="#e2e2e2"
+                android:text="@string/please_pay_first"
+                />
+        </LinearLayout>
 
-    </LinearLayout>
+
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:background="#25d0fc"
+                android:layout_marginBottom="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="10dp">
+
+                <Button
+                    android:id="@+id/btn_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#25d0fc"
+                    android:fontFamily="@font/rubik_regular"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:letterSpacing="0.02"
+                    android:text="@string/pay_now"
+                    android:textColor="#34353b"
+                    tools:targetApi="lollipop" />
+
+            </androidx.cardview.widget.CardView>
+
+
+
+    </RelativeLayout>
 
 </LinearLayout>
